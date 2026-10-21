@@ -3,674 +3,594 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#101e35">
-  <meta name="description" content="모바일 웹앱 디자인 기획 및 설계를 위한 대학 강의교안 인포그래픽 — 개념, UI/UX, 기획, 요구사항, 정보구조, 와이어프레임, 반응형 웹, 프로토타입, 실습까지">
-  <title>모바일 웹앱 디자인 기획 및 설계 | 강의 인포그래픽</title>
+  <meta name="theme-color" content="#111b3c">
+  <meta name="description" content="모바일 웹앱 디자인, Android와 iOS 디자인 설계 등 강의자료를 한곳에서 탐색하는 온라인 무크 학습센터">
+  <title>OPEN MOOC | 디지털 강의자료 센터</title>
   <style>
     :root {
-      --navy:#10213c; --navy2:#162e4d; --ink:#18263b; --muted:#64748b;
-      --soft:#f5f8fc; --paper:#fff; --line:#e4eaf2; --blue:#396be8;
-      --blue-soft:#eaf0ff; --teal:#0da992; --teal-soft:#e0faf3;
-      --amber:#f39b31; --amber-soft:#fff4e3; --purple:#7b63d8; --purple-soft:#f2eeff;
-      --rose:#dc6281; --rose-soft:#fff0f4; --shadow:0 18px 48px rgba(20,44,82,.08);
+      --navy: #111b3c;
+      --ink: #202b42;
+      --muted: #707e94;
+      --line: #e4eaf3;
+      --brand: #3958db;
+      --brand-dark: #2945b9;
+      --bg: #f5f7fb;
+      --white: #ffffff;
+      --shadow: 0 14px 35px rgba(35, 55, 100, .075);
     }
-    *,*::before,*::after {box-sizing:border-box}
-    html {scroll-behavior:smooth; scroll-padding-top:86px}
-    body {margin:0;background:var(--soft);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR", "Segoe UI",sans-serif;line-height:1.69;word-break:keep-all;overflow-wrap:break-word}
-    button,input {font:inherit} button {cursor:pointer} a {color:inherit}
-    .progress {height:4px;background:var(--teal);width:0;position:fixed;left:0;top:0;z-index:101;transition:width .15s ease}
-    .site-top {height:70px;background:#fffefefa;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:99;backdrop-filter:blur(16px)}
-    .top-inner {max-width:1460px;margin:auto;height:100%;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:0 30px}
-    .brand {display:flex;gap:10px;align-items:center;text-decoration:none;font-size:14px;font-weight:850;letter-spacing:-.035em;white-space:nowrap}
-    .brand-symbol {width:34px;height:34px;border-radius:11px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:17px}
-    .brand em {font-style:normal;font-size:11px;background:var(--blue-soft);color:#325fd1;padding:3px 8px;border-radius:999px;font-weight:800;margin-left:4px}
-    .top-actions {display:flex;align-items:center;gap:10px}
-    .action {display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:11px;font-size:13px;font-weight:800;padding:10px 15px;border:1px solid #dbe4f0;background:#fff;color:#253f63;transition:transform .15s ease,background .15s ease}
-    .action:hover {transform:translateY(-1px);background:#f5f8ff}
-    .action.primary {background:var(--navy);color:#fff;border-color:var(--navy)}
-    .action.primary:hover {background:#243b5c}
-    .action svg{height:16px;width:16px}
-    .layout {max-width:1460px;margin:0 auto;display:grid;grid-template-columns:236px minmax(0,1fr);gap:36px;padding:29px 30px 72px}
-    .aside {position:relative}
-    .aside-sticky {position:sticky;top:101px}
-    .rail-caption {font-size:11px;letter-spacing:.17em;font-weight:900;color:#8a9ab1;margin:0 0 16px 13px}
-    .toc {display:flex;flex-direction:column;gap:4px;border-left:2px solid #dce5f1;padding-left:10px}
-    .toc a {text-decoration:none;display:flex;align-items:center;gap:12px;color:#6b7c93;padding:8px 11px;border-radius:10px;font-size:12px;font-weight:700;line-height:1.4;transition:all .15s}
-    .toc a b {width:22px;font-size:11px;color:#9eacbd}
-    .toc a:hover,.toc a.active {background:#e9effa;color:#244d98}
-    .toc a.active b {color:#245ddb}
-    .aside-note {margin-top:24px;padding:17px 16px;border:1px solid var(--line);border-radius:15px;background:#fff}
-    .aside-note small {display:block;font-weight:900;color:#436daa;margin-bottom:6px;font-size:11px;letter-spacing:.06em}
-    .aside-note p {font-size:12px;color:#687b93;line-height:1.8;margin:0}
-    .content{min-width:0}
-    .hero {border-radius:26px;overflow:hidden;min-height:365px;background:linear-gradient(120deg,#10233e 0%,#182b54 48%,#23466e 100%);color:#fff;display:grid;grid-template-columns:1.15fr .85fr;position:relative;box-shadow:0 24px 65px rgba(17,39,78,.16)}
-    .hero::before {content:"";position:absolute;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle,rgba(36,212,190,.19),transparent 68%);right:-140px;top:-160px;pointer-events:none}
-    .hero::after {content:"";position:absolute;inset:0;opacity:.13;pointer-events:none;background-image:radial-gradient(#accbe4 1px,transparent 1px);background-size:24px 24px;mask-image:linear-gradient(90deg,transparent 20%,black 100%)}
-    .hero-copy {padding:49px 0 44px 47px;position:relative;z-index:2}
-    .eyebrow {font-size:12px;letter-spacing:.16em;color:#77e1cd;font-weight:900;display:flex;align-items:center;gap:9px}
-    .eyebrow::before {content:"";height:7px;width:7px;border-radius:50%;background:#68e8d2;box-shadow:0 0 0 5px rgba(104,232,210,.13)}
-    h1 {font-size:clamp(30px,3.55vw,49px);line-height:1.28;letter-spacing:-.06em;margin:24px 0 18px;font-weight:900}
-    h1 .accent {color:#6ee7d1}
-    .hero-desc {color:#c3d2e6;line-height:1.9;font-size:14px;max-width:500px;margin:0 0 24px}
-    .hero-tags {display:flex;flex-wrap:wrap;gap:8px}
-    .hero-tags span {padding:6px 12px;border:1px solid rgba(255,255,255,.21);border-radius:100px;font-size:11px;color:#e4edfa;background:rgba(255,255,255,.06);font-weight:750}
-    .hero-visual {align-self:end;justify-self:center;height:356px;width:100%;max-width:348px;position:relative;z-index:2;overflow:hidden}
-    .hero-phone {position:absolute;bottom:-48px;left:57px;width:217px;height:367px;border:7px solid #0a1528;border-radius:33px;background:#f8fbff;box-shadow:14px 16px 40px #09152c9c;transform:rotate(8deg);padding:13px 12px;color:#172a48}
-    .notch {width:56px;height:13px;border-radius:0 0 9px 9px;background:#10192a;margin:-13px auto 20px}
-    .phone-bar {display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:900;margin-bottom:10px}
-    .phone-chip {background:#e7edfb;border-radius:6px;padding:7px;font-size:9px;color:#66758a;margin:12px 0}
-    .phone-banner {background:linear-gradient(110deg,#d8f9ef,#eaf1ff);border-radius:10px;padding:13px;font-size:12px;font-weight:900;line-height:1.35}
-    .phone-banner small {font-weight:500;color:#678199;font-size:9px}
-    .phone-tiles {display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-    .phone-tiles div {border:1px solid #e2e8f2;background:#fff;border-radius:9px;padding:10px 3px;text-align:center;font-size:9px;font-weight:800}
-    .phone-tiles span {display:block;font-size:18px;margin-bottom:3px}
-    .float-badge {position:absolute;background:#fff;color:#273b57;box-shadow:0 12px 22px #06142c3d;border-radius:13px;padding:11px 14px;font-size:11px;font-weight:900;z-index:3;transform:rotate(-7deg)}
-    .float-badge.one {left:0;top:65px}.float-badge.two {right:5px;bottom:63px;transform:rotate(4deg)}
-    .float-badge i {font-style:normal;color:var(--teal);margin-right:5px}
-    .quickstats {display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
-    .stat {background:#fff;border-radius:16px;padding:17px 20px;border:1px solid var(--line);display:flex;gap:11px;align-items:center;min-width:0}
-    .stat .number {font-size:27px;color:#234b85;line-height:1.1;letter-spacing:-.06em;font-weight:900;white-space:nowrap}
-    .stat span {font-size:11px;color:#73849b;font-weight:750;line-height:1.6}
-    section.chapter {scroll-margin-top:90px;margin-top:44px}
-    .chapter-heading{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px}
-    .chapter-num {font-weight:950;color:var(--blue);background:#e7efff;padding:8px 12px;border-radius:11px;font-size:13px;line-height:1.5;letter-spacing:-.035em}
-    h2 {font-size:clamp(22px,2.4vw,30px);line-height:1.35;letter-spacing:-.05em;margin:0 0 7px;font-weight:900;color:#1c2c46}
-    .chapter-heading p {font-size:13px;color:#8190a5;margin:0;line-height:1.8}
-    .card {background:#fff;border:1px solid var(--line);border-radius:18px;padding:23px;box-shadow:0 8px 24px rgba(25,46,83,.025)}
-    .card h3 {font-size:17px;letter-spacing:-.035em;line-height:1.4;margin:0 0 12px;font-weight:850}
-    .card p {font-size:13px;color:#607087;margin:0 0 10px;line-height:1.9}
-    .card p:last-child {margin-bottom:0}
-    .card .minor {font-size:11px;color:#8b9aaf}
-    .cols-2 {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-    .cols-3 {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-    .cols-4 {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-    .stack {display:grid;gap:16px}
-    .pill {font-size:10px;font-weight:900;letter-spacing:.015em;display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;white-space:nowrap}
-    .pill.blue{background:var(--blue-soft);color:#3863c3}.pill.teal{background:var(--teal-soft);color:#087e70}
-    .pill.amber{background:var(--amber-soft);color:#bd781b}.pill.purple{background:var(--purple-soft);color:#6b51bd}
-    .pill.rose{background:var(--rose-soft);color:#c04669}
-    .intro-lead {background:linear-gradient(115deg,#fff,#f3f7ff);border:1px solid #dbe7fd;border-radius:18px;padding:22px 25px;display:flex;gap:22px;justify-content:space-between;align-items:center}
-    .intro-lead strong {display:block;font-size:18px;letter-spacing:-.035em;line-height:1.5}
-    .intro-lead p {font-size:13px;color:#65768d;margin:8px 0 0;line-height:1.85}
-    .intro-lead .glyph {font-size:47px;line-height:1}
-    .type-head {display:flex;align-items:center;gap:10px;margin-bottom:12px}
-    .type-icon {display:grid;place-items:center;border-radius:13px;width:40px;height:40px;font-size:22px}
-    .type-icon.blue{background:var(--blue-soft)}.type-icon.teal{background:var(--teal-soft)}.type-icon.purple{background:var(--purple-soft)}
-    .type-card {position:relative;overflow:hidden}
-    .type-card::after {content:"";position:absolute;bottom:0;left:0;width:100%;height:4px;background:var(--blue)}
-    .type-card.green::after{background:var(--teal)}.type-card.purple::after{background:var(--purple)}
-    .type-card strong {display:block;font-size:14px;font-weight:850;margin-bottom:8px}
-    .type-card p {font-size:12px}
-    .comparison{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
-    .comparison th,.comparison td{text-align:left;padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top}
-    .comparison th{background:#f5f8fd;color:#49607e;font-size:11px;font-weight:850}
-    .comparison tr:last-child td{border-bottom:0}
-    .comparison td:first-child{font-weight:800;color:#3e5370}
-    .table-scroll {overflow-x:auto}
-    .keyline{display:flex;align-items:center;gap:8px;color:#58718f;font-size:11px;font-weight:850;letter-spacing:.08em;margin-bottom:11px}
-    .keyline:before{content:"";display:block;width:17px;height:3px;background:var(--teal);border-radius:5px}
-    .concept {border-radius:18px;padding:22px;border:1px solid var(--line)}
-    .concept.ui{background:linear-gradient(140deg,#eaf1ff,#fbfdff)}
-    .concept.ux{background:linear-gradient(140deg,#e5fbf3,#fbfffd)}
-    .concept-head{display:flex;align-items:center;justify-content:space-between;gap:15px}
-    .concept-head b{font-size:31px;letter-spacing:-.055em}
-    .concept-head span{font-size:33px}
-    .concept p{font-size:12px;color:#65798f;margin:5px 0 17px}
-    .concept ul {margin:0;padding-left:18px;color:#415573;font-size:12px;line-height:2}
-    .bridge {display:flex;align-items:center;justify-content:center;gap:16px;padding:16px;border:1px dashed #cbd7e8;border-radius:14px;color:#415575;font-size:12px;font-weight:850;background:#fff}
-    .bridge .plus{display:grid;place-items:center;width:27px;height:27px;background:#d9e8ff;color:var(--blue);border-radius:50%;font-size:20px}
-    .flowgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-    .flowstep{border-radius:16px;padding:20px;border:1px solid var(--line);background:#fff;position:relative;min-height:180px}
-    .flowstep::before{content:attr(data-step);font-size:34px;line-height:1;font-weight:900;color:#e7edf6;position:absolute;top:16px;right:19px}
-    .flowstep .flowicon{height:42px;width:42px;border-radius:13px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:22px;margin-bottom:18px}
-    .flowstep:nth-child(2) .flowicon,.flowstep:nth-child(5) .flowicon{background:var(--teal-soft);color:var(--teal)}
-    .flowstep:nth-child(3) .flowicon,.flowstep:nth-child(6) .flowicon{background:var(--amber-soft);color:#c57d22}
-    .flowstep h3{margin:0 0 7px;font-size:14px;line-height:1.55;letter-spacing:-.025em}
-    .flowstep p{margin:0;font-size:12px;color:#728197;line-height:1.8}
-    .flow-arrow{margin:10px 0;text-align:center;font-size:10px;font-weight:850;color:#55728e}
-    .case-box{background:var(--navy);border-radius:18px;color:#fff;padding:22px 25px;display:grid;grid-template-columns:1.3fr .7fr;align-items:center;gap:20px}
-    .case-box h3{margin:8px 0 9px;font-size:20px;letter-spacing:-.04em}
-    .case-box p{font-size:12px;color:#bed0e2;line-height:1.9;margin:0}
-    .case-bubbles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .case-bubbles span{background:#ffffff16;border:1px solid #ffffff26;border-radius:10px;text-align:center;padding:12px 7px;font-size:11px;font-weight:750}
-    .persona {border:1px solid #d7e7ff;background:linear-gradient(120deg,#f2f7ff,#fff);border-radius:18px;padding:22px}
-    .persona-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
-    .avatar{width:53px;height:53px;border-radius:15px;background:#dce8fb;display:grid;place-items:center;font-size:27px}
-    .persona-head b{display:block;font-size:16px}.persona-head small{font-size:11px;color:#788ba4}
-    .persona-items{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .persona-items div{background:#fff;border:1px solid #e2eaf7;border-radius:11px;padding:12px;font-size:11px;color:#5e7390}
-    .persona-items b{display:block;color:#365177;font-size:11px;margin-bottom:4px}
-    .feature-list {display:grid;gap:9px}
-    .feature-row{padding:13px 14px;border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;gap:11px;font-size:12px;font-weight:750}
-    .feature-row .check{display:grid;place-items:center;width:21px;height:21px;border-radius:50%;background:var(--teal-soft);color:#079f85;font-size:12px;font-weight:900;flex:none}
-    .feature-row .tag{margin-left:auto;color:#0e907f;font-size:10px;font-weight:850}
-    .feature-row.optional .check{background:var(--amber-soft);color:#ba7925}
-    .feature-row.optional .tag{color:#b37c31}
-    .requirements{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .req-box{padding:18px;background:#f6f9ff;border-radius:14px;border:1px solid #e3ebfc}
-    .req-box.teal{background:#f1fbf8;border-color:#d9f2e9}
-    .req-box b{font-size:15px}.req-box ul{margin:10px 0 0;padding-left:18px;color:#63758e;font-size:12px;line-height:2}
-    .ia-root{background:var(--navy);color:#fff;text-align:center;border-radius:12px;padding:13px;font-size:14px;font-weight:900;max-width:310px;margin:0 auto}
-    .ia-connector{height:28px;margin:0 auto;max-width:84%;border-top:2px solid #bdd0e5;border-left:2px solid #bdd0e5;border-right:2px solid #bdd0e5;transform:translateY(18px)}
-    .ia-items{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;position:relative}
-    .ia-item{text-align:center;padding:14px 8px;background:#eef4ff;border:1px solid #dce7f8;border-radius:11px;min-width:0}
-    .ia-item strong{font-size:12px;display:block;color:#264877}
-    .ia-item em{font-size:10px;font-style:normal;display:block;margin-top:7px;color:#7288a6;line-height:1.5}
-    .simple-flow{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
-    .simple-flow span{padding:10px 11px;border-radius:9px;background:#f0f5ff;font-size:11px;font-weight:850;color:#315d99;white-space:nowrap}
-    .simple-flow b{font-size:19px;color:#94a6be;font-weight:500}
-    .branch-flow{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:13px}
-    .branch{border:1px solid #dfe8f3;border-radius:12px;padding:14px;font-size:12px;text-align:center;font-weight:750}
-    .branch.yes{background:#e8fbf5;color:#087f68}.branch.no{background:#fff5eb;color:#a06c2b}
-    .branch small{display:block;margin-top:4px;font-weight:550;font-size:11px}
-    .wireframe-layout{display:grid;grid-template-columns:320px minmax(0,1fr);gap:25px;align-items:center}
-    .device-container{padding:18px;background:#edf3fc;border-radius:16px;display:grid;place-items:center}
-    .device {width:234px;max-width:100%;background:#fff;border:7px solid #15253c;border-radius:33px;box-shadow:0 17px 20px #253e6530;padding:13px 12px 15px}
-    .device-top{height:13px;width:60px;border-radius:0 0 9px 9px;background:#15253c;margin:-13px auto 17px}
-    .device-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:850;font-size:12px}
-    .device-search{background:#eff3fa;border:1px solid #dbe4ef;border-radius:9px;padding:10px;font-size:10px;color:#8393a7;margin:16px 0}
-    .device-promo{background:linear-gradient(120deg,#d9e8ff,#e4fbf2);border-radius:9px;padding:13px 9px;font-size:11px;font-weight:900;line-height:1.4}
-    .device-promo small{font-size:9px;color:#738aa3;font-weight:500}
-    .device-menu{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:13px 0}
-    .device-menu span{font-size:9px;font-weight:750;display:grid;place-items:center;gap:3px;min-height:61px;border:1px solid #dde7f2;border-radius:8px}
-    .device-menu i{font-style:normal;font-size:18px}
-    .device-bottom{font-size:9px;color:#71849d;display:flex;justify-content:space-around;border-top:1px solid #e3e9f0;padding-top:10px;margin-top:10px}
-    .annotation{display:grid;gap:10px}
-    .annotation-row{display:flex;align-items:start;gap:10px;padding:12px;border:1px solid #e7edf5;background:#fff;border-radius:11px}
-    .bubble-num{height:24px;width:24px;flex:none;border-radius:8px;background:var(--blue-soft);color:var(--blue);font-size:12px;font-weight:950;display:grid;place-items:center}
-    .annotation-row strong{display:block;font-size:12px}.annotation-row span{display:block;color:#75869c;font-size:11px;line-height:1.7;margin-top:3px}
-    .devices-demo{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:end}
-    .demo-device{display:flex;align-items:center;flex-direction:column;gap:13px}
-    .demo-screen{width:100%;border:3px solid #354a66;border-radius:8px 8px 4px 4px;background:#fff;padding:9px;min-height:138px;box-shadow:0 9px 18px #2f4c7020}
-    .demo-screen.mobile{max-width:92px;min-height:164px;border-radius:18px;padding:8px}
-    .demo-screen.tablet{max-width:170px}
-    .demo-screen.laptop{max-width:245px}
-    .demo-top{height:11px;background:#d8e4f6;border-radius:3px;margin-bottom:9px}
-    .demo-rows{display:grid;grid-template-columns:repeat(var(--cols),1fr);gap:5px}
-    .demo-rows i{display:block;background:#c3d9fb;border-radius:4px;height:42px}
-    .demo-device small{font-size:11px;color:#8392a7;font-weight:750}
-    .demo-device b{font-size:12px}
-    .touch-tips{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
-    .touch-tip{background:#fff;border:1px solid var(--line);border-radius:12px;text-align:center;padding:18px 8px}
-    .touch-tip span{font-size:25px;display:block;margin-bottom:9px}.touch-tip b{display:block;font-size:11px}
-    .touch-tip small{display:block;font-size:10px;color:#8594a8;margin-top:6px;line-height:1.7}
-    .palette{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-    .swatch .color{height:68px;border-radius:10px;margin-bottom:7px}
-    .swatch b{display:block;font-size:11px}.swatch small{color:#8290a3;font-size:10px}
-    .typo-demo{border-left:4px solid var(--blue);padding:8px 0 8px 17px}
-    .typo-demo .t1{font-size:24px;font-weight:900;letter-spacing:-.045em}
-    .typo-demo .t2{font-size:18px;font-weight:850;margin-top:7px}
-    .typo-demo .t3{font-size:14px;color:#5e7087;margin-top:8px}
-    .typo-demo .t4{font-size:11px;color:#8d9aab;margin-top:7px}
-    .ui-samples{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-    .sample-btn{border-radius:9px;font-size:11px;font-weight:850;padding:10px 14px;background:var(--blue);color:#fff;border:1px solid var(--blue)}
-    .sample-btn.secondary{background:#fff;color:var(--blue)}
-    .sample-btn.disabled{background:#e9eef6;color:#9faabb;border-color:#e9eef6}
-    .sample-input{padding:10px 12px;border-radius:9px;border:1px solid #d9e4f1;min-width:160px;background:#fff;color:#9aabc2;font-size:11px}
-    .proto-card{text-align:left;border:1px solid var(--line);background:#fff;border-radius:15px;padding:17px}
-    .proto-art{height:108px;border-radius:10px;background:#f3f6fb;display:grid;place-items:center;margin-bottom:15px;overflow:hidden}
-    .proto-screen{border:3px solid #c5d1e1;background:white;border-radius:9px;width:80px;height:90px;padding:10px 8px;transform:rotate(-6deg);display:grid;gap:5px}
-    .proto-screen i{display:block;background:#d6e1f0;border-radius:3px;height:11px}
-    .proto-screen i:nth-child(2){height:29px}.proto-screen i:nth-child(3){width:60%}
-    .proto-art.fancy{background:#e9f2ff}
-    .proto-art.fancy .proto-screen{border-color:#537fd8}
-    .proto-art.fancy .proto-screen i:nth-child(1){background:#7199e6}.proto-art.fancy .proto-screen i:nth-child(2){background:#d9f4ee}
-    .proto-art.clickable{background:#e9fbf4}
-    .proto-art.clickable .proto-screen{border-color:#21ae93;transform:rotate(5deg)}
-    .proto-card h3{font-size:14px}.proto-card p{font-size:11px;margin:0}
-    .metrics {display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-    .metric {background:#fff;border:1px solid #e3ebf5;border-radius:12px;padding:16px 9px;text-align:center}
-    .metric i{font-style:normal;display:block;font-size:22px;margin-bottom:7px}
-    .metric b{display:block;font-size:11px}.metric small{display:block;font-size:10px;color:#8996a8;margin-top:5px;line-height:1.6}
-    .architecture{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:8px;align-items:center}
-    .arch-node{border:1px solid #d7e4f3;border-radius:13px;padding:23px 11px;text-align:center;background:#f8fbff;min-height:155px}
-    .arch-node span{font-size:27px;display:block;margin-bottom:9px}
-    .arch-node b{font-size:13px;display:block}.arch-node small{display:block;font-size:10px;color:#8292a8;line-height:1.7;margin-top:7px}
-    .arch-arrow{color:#7495bd;font-size:24px;font-weight:850;text-align:center}
-    .three-checks{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
-    .check-card{padding:19px;background:#fff;border:1px solid var(--line);border-radius:14px}
-    .check-card h3{font-size:14px;margin:0 0 9px;display:flex;align-items:center;gap:7px}
-    .check-card h3 span{font-size:20px}
-    .check-card ul{margin:0;padding-left:17px;font-size:11px;color:#64768d;line-height:2.15}
-    .assignment{background:linear-gradient(115deg,#13365b,#214f68);border-radius:18px;padding:25px;color:#fff}
-    .assignment h3{font-size:21px;letter-spacing:-.035em;margin:6px 0 10px}
-    .assignment p{font-size:12px;color:#cbdeeb;line-height:1.9;margin:0}
-    .deliverables{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
-    .deliverable{display:flex;gap:10px;align-items:center;padding:12px;border-radius:11px;border:1px solid var(--line);font-size:12px;font-weight:700;background:#fff}
-    .deliverable em{font-style:normal;background:#eaf2ff;border-radius:7px;padding:5px 8px;color:#3865b2;font-size:10px;font-weight:950}
-    .rubric{display:grid;gap:12px}
-    .rubric-row{display:grid;grid-template-columns:minmax(135px,1.35fr) 3fr 42px;align-items:center;gap:12px;font-size:11px}
-    .rubric-row b{font-weight:750}.rubric-track{height:9px;border-radius:99px;background:#e9eff7;overflow:hidden}
-    .rubric-fill{display:block;background:linear-gradient(90deg,#3b70de,#0fb8a0);height:100%;border-radius:99px}
-    .rubric-row strong{text-align:right;font-size:12px;color:#456894}
-    .takeaway-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    .takeaway{padding:17px;background:#fff;border:1px solid var(--line);border-radius:14px;display:flex;align-items:start;gap:10px}
-    .takeaway b{display:block;font-size:13px;margin-bottom:4px}.takeaway p{color:#718198;font-size:11px;line-height:1.8;margin:0}
-    .takeaway .mark{flex:none;width:25px;height:25px;display:grid;place-items:center;border-radius:8px;background:var(--teal-soft);color:#0c9b81;font-weight:950;font-size:13px}
-    details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 15px}
-    details+details{margin-top:8px}
-    summary{list-style:none;font-size:12px;font-weight:750;cursor:pointer;padding:16px 0;display:flex;justify-content:space-between;align-items:center;gap:15px}
-    summary::-webkit-details-marker{display:none} summary::after{content:"+";font-size:19px;color:var(--blue);font-weight:900}
-    details[open] summary::after{content:"−"} details p{font-size:12px;color:#567189;line-height:1.8;margin:0;padding:0 0 16px}
-    .footnote{color:#8291a5;font-size:11px;margin-top:14px;line-height:1.8}
-    .endbanner{margin-top:42px;background:linear-gradient(100deg,#e5f4ff,#e4faf1);border:1px solid #d2ebe9;border-radius:17px;padding:24px 25px;display:flex;justify-content:space-between;gap:20px;align-items:center}
-    .endbanner strong{font-size:18px;letter-spacing:-.035em}.endbanner p{font-size:12px;color:#638196;margin:7px 0 0}
-    footer{padding:26px 0 5px;font-size:11px;color:#8fa0b4;display:flex;justify-content:space-between;gap:12px}
-    .mobile-toc-btn {display:none}
-    .back-to-top{background:var(--navy);color:#fff;position:fixed;right:20px;bottom:20px;z-index:92;border:0;border-radius:12px;width:42px;height:42px;display:grid;place-items:center;box-shadow:0 8px 22px #253d6550;font-size:17px;opacity:0;pointer-events:none;transition:opacity .2s}
-    .back-to-top.visible{opacity:1;pointer-events:auto}
-    .live-label{font-size:11px;color:#7c8da5;font-weight:750;margin-bottom:9px}
-    .preview-phone{width:240px;background:#fff;border:6px solid #18314f;border-radius:28px;margin:0 auto;padding:18px 12px;box-shadow:0 12px 25px #1a375020}
-    .preview-screen{min-height:197px}
-    .preview-screen[hidden]{display:none}
-    .preview-btn{background:#386ded;color:white;border:0;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:750;width:100%;margin-top:8px}
-    .preview-field{border-radius:7px;background:#eef3fb;color:#7d8da3;padding:10px;font-size:11px;margin-top:11px}
-    .preview-result{border:1px solid #e2e8f2;border-radius:9px;padding:10px;margin-top:11px;font-size:11px}
-    .preview-result b{display:block;color:#294976}
-    .preview-result small{font-size:10px;color:#8091a7}
-    .preview-controls{display:flex;gap:8px;margin-top:15px;justify-content:center;flex-wrap:wrap}
-    .preview-controls button{border:1px solid #d6e1ef;border-radius:9px;padding:8px 11px;background:#fff;font-size:11px;font-weight:850;color:#5b728f}
-    .preview-controls button[aria-pressed="true"]{background:#e4efff;color:#255ab0;border-color:#9dbdf4}
-    @media (max-width:1160px){
-      .layout{grid-template-columns:190px minmax(0,1fr);gap:23px;padding-left:22px;padding-right:22px}
-      .hero-copy{padding-left:30px}.hero-visual{transform:scale(.9);transform-origin:bottom center}
-      .flowgrid{grid-template-columns:repeat(2,1fr)} .touch-tips{grid-template-columns:repeat(2,1fr)}
-      .wireframe-layout{grid-template-columns:280px minmax(0,1fr);gap:16px}
-    }
-    @media (max-width:880px){
-      .layout{display:block;padding:19px 17px 55px}.aside{display:none}.top-inner{padding:0 16px}.brand{font-size:12px}
-      .mobile-toc-btn{display:inline-flex}
-      .aside.mobile-open{display:block;position:fixed;top:70px;left:0;right:0;bottom:0;overflow:auto;background:#f6f9fd;z-index:98;padding:22px 26px 40px;box-shadow:0 15px 40px #172a4f26}
-      .aside.mobile-open .aside-sticky{position:static}
-      .hero{min-height:330px}.hero-copy{padding:35px 0 35px 27px}.hero-visual{transform:scale(.78);margin-left:-25px}
-      .quickstats{grid-template-columns:repeat(2,1fr)}
-    }
-    @media (max-width:650px){
-      .site-top{height:62px}.aside.mobile-open{top:62px}.top-inner{padding:0 13px}.brand em{display:none}
-      .action{padding:9px 11px;font-size:11px}.action svg{width:14px;height:14px}
-      .top-actions{gap:6px}
-      .hero{grid-template-columns:1fr;min-height:0;border-radius:18px}
-      .hero-copy{padding:32px 26px 25px}
-      h1{font-size:34px;margin:17px 0}
-      .hero-desc{font-size:12px}
-      .hero-visual{height:236px;max-width:300px;transform:none;margin:0 auto;overflow:hidden}
-      .hero-phone{left:55px;bottom:-110px;transform:rotate(8deg) scale(.82);transform-origin:bottom left}
-      .float-badge.one{top:25px;left:12px}.float-badge.two{bottom:21px;right:12px}
-      .quickstats{gap:8px;margin-top:12px}
-      .stat{padding:13px 12px;gap:7px}.stat .number{font-size:22px}.stat span{font-size:10px}
-      section.chapter{margin-top:34px}.chapter-heading{gap:10px}
-      h2{font-size:22px}.chapter-heading p{font-size:12px}
-      .card{padding:17px}
-      .cols-2,.cols-3,.cols-4,.case-box,.requirements,.persona-items,.takeaway-grid,.three-checks,.deliverables{grid-template-columns:1fr}
-      .flowgrid{grid-template-columns:1fr 1fr;gap:9px}.flowstep{padding:15px;min-height:165px}
-      .flowstep h3{font-size:12px}.flowstep p{font-size:10px}.flowstep .flowicon{margin-bottom:12px}
-      .intro-lead{padding:18px}.intro-lead strong{font-size:15px}.intro-lead .glyph{display:none}
-      .case-box{gap:15px}
-      .ia-items{grid-template-columns:repeat(2,1fr)} .ia-connector{display:none}.ia-root{margin-bottom:10px}
-      .wireframe-layout{grid-template-columns:1fr}
-      .devices-demo{gap:9px}.demo-screen.laptop{min-height:110px}
-      .palette{grid-template-columns:repeat(2,1fr)}
-      .metrics{grid-template-columns:repeat(2,1fr)}
-      .architecture{grid-template-columns:1fr;gap:5px}.arch-node{min-height:0;padding:14px}.arch-arrow{transform:rotate(90deg)}
-      .rubric-row{grid-template-columns:1fr 1.15fr 35px;gap:8px;font-size:10px}
-      .endbanner{padding:20px;display:block}.endbanner strong{font-size:16px}.endbanner .action{margin-top:13px}
-      footer{display:block}.chapter-num{padding:6px 9px}
-    }
-    @media (max-width:370px){.brand{font-size:10px}.brand-symbol{height:28px;width:28px}.top-actions .action.primary{padding:8px;font-size:0}.action.primary svg{width:17px;height:17px}}
-    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
-    @media print{
-      @page{size:A4;margin:12mm}
-      *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
-      html{scroll-behavior:auto}body{background:#fff;font-size:10pt}
-      .site-top,.aside,.back-to-top,.progress,.endbanner .action,.preview-controls{display:none!important}
-      .layout{display:block;max-width:none;padding:0}.content{max-width:none}
-      .hero{min-height:245px;box-shadow:none;border-radius:14px}.hero-copy{padding:30px 25px}
-      .hero-visual{height:245px;transform:scale(.68);transform-origin:bottom center}
-      h1{font-size:32px}.hero-desc{font-size:11px}
-      .quickstats{margin-top:12px}.stat{padding:11px}
-      section.chapter{margin-top:22px;break-inside:auto;page-break-inside:auto}
-      .chapter-heading{break-after:avoid}.card,.concept,.type-card,.flowstep,.check-card,.takeaway,.assignment,.intro-lead,.persona,.case-box,.proto-card{break-inside:avoid;box-shadow:none}
-      .flowgrid{grid-template-columns:repeat(3,1fr)}.cols-3{grid-template-columns:repeat(3,1fr)}.cols-2{grid-template-columns:repeat(2,1fr)}
-      .architecture{grid-template-columns:1fr auto 1fr auto 1fr}
-      .wireframe-layout{grid-template-columns:320px 1fr}.three-checks{grid-template-columns:repeat(3,1fr)}
-      details p{display:block!important}
-      .footnote{font-size:9px}
-      footer{margin-top:20px}
-    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--bg); font-family: Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", Arial, sans-serif; line-height: 1.58; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid #9baeff; outline-offset: 3px; }
+    .wrap { width: min(1192px, calc(100% - 48px)); margin: 0 auto; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .site-header { position: sticky; top: 0; z-index: 20; height: 82px; background: rgba(255,255,255,.96); backdrop-filter: blur(18px); border-bottom: 1px solid rgba(220,227,240,.84); }
+    .header-inner { height: 100%; display: flex; align-items: center; gap: 34px; }
+    .brand { text-decoration: none; display: inline-flex; align-items: center; gap: 12px; flex-shrink: 0; }
+    .brand-symbol { display: grid; grid-template-columns: repeat(2, 14px); grid-template-rows: repeat(2, 14px); gap: 3px; transform: rotate(-9deg); }
+    .brand-symbol i { display: block; border-radius: 4px; background: #3555df; }
+    .brand-symbol i:nth-child(2) { background: #7a8eff; }
+    .brand-symbol i:nth-child(3) { background: #a0b1ff; }
+    .brand-symbol i:nth-child(4) { background: #506af0; }
+    .brand-word { display: grid; line-height: 1.03; }
+    .brand-word strong { font-size: 18px; letter-spacing: -.7px; color: #0d224a; font-weight: 850; }
+    .brand-word small { font-size: 10px; font-weight: 850; letter-spacing: 2.1px; color: #65738b; margin-top: 5px; }
+    .desktop-nav { display: flex; gap: 29px; margin-left: auto; align-items: center; }
+    .desktop-nav a { text-decoration: none; font-size: 14px; font-weight: 700; color: #56637b; padding: 10px 0; transition: color .2s; }
+    .desktop-nav a:hover { color: var(--brand); }
+    .header-admin { flex-shrink: 0; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #dce4f4; background: #f8faff; border-radius: 11px; padding: 10px 15px; color: #32456a; font-weight: 750; font-size: 13px; }
+    .header-admin:hover, .header-admin[aria-pressed="true"] { background: #eaf0ff; border-color: #aec0ff; color: #2946b9; }
+    .header-admin svg { width: 17px; height: 17px; }
+    .hero { padding: 37px 0 0; }
+    .hero-shell { min-height: 426px; background: linear-gradient(111deg, #101b3e 0%, #16245a 56%, #263cb0 125%); color: #fff; border-radius: 23px; padding: 57px 64px; position: relative; overflow: hidden; display: grid; grid-template-columns: 1.14fr .86fr; gap: 30px; align-items: center; }
+    .hero-shell::before { content: ""; position: absolute; width: 520px; height: 520px; border: 1px solid rgba(255,255,255,.11); border-radius: 50%; right: -132px; top: -185px; box-shadow: 0 0 0 84px rgba(255,255,255,.035), 0 0 0 160px rgba(255,255,255,.02); }
+    .hero-shell::after { content: ""; position: absolute; width: 330px; height: 330px; border-radius: 50%; right: 200px; bottom: -300px; background: #637aff; filter: blur(100px); opacity: .45; }
+    .hero-copy, .hero-art { position: relative; z-index: 1; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; background: rgba(141,163,255,.16); color: #c8d5ff; font-size: 11px; letter-spacing: 2.15px; font-weight: 850; border: 1px solid rgba(169,182,255,.24); border-radius: 100px; }
+    .hero-eyebrow::before { content: ""; width: 6px; height: 6px; background: #9fdcd8; border-radius: 50%; }
+    .hero h1 { font-size: clamp(32px, 4vw, 48px); letter-spacing: -2.5px; line-height: 1.32; margin: 21px 0 19px; font-weight: 830; }
+    .hero h1 em { font-style: normal; color: #afc0ff; }
+    .hero p { margin: 0; font-size: 15px; line-height: 1.9; color: #c0cbea; max-width: 500px; }
+    .hero-actions { margin-top: 29px; display: flex; gap: 11px; flex-wrap: wrap; }
+    .btn { border: 0; display: inline-flex; justify-content: center; align-items: center; gap: 8px; text-decoration: none; border-radius: 11px; font-weight: 780; font-size: 13px; min-height: 43px; padding: 10px 18px; transition: transform .18s, background .18s, box-shadow .18s; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { color: #273b95; background: #fff; }
+    .btn-primary:hover { background: #edf1ff; }
+    .btn-ghost { color: #f0f3ff; background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.20); }
+    .btn-ghost:hover { background: rgba(255,255,255,.18); }
+    .hero-art { justify-self: end; width: min(100%, 365px); padding: 16px; border-radius: 18px; border: 1px solid rgba(244,247,255,.21); background: rgba(255,255,255,.11); box-shadow: 0 30px 45px rgba(4,14,42,.2); transform: rotate(2.7deg); }
+    .dashboard { border-radius: 12px; padding: 23px; background: #fff; color: #1e2948; box-shadow: 0 12px 32px rgba(8,14,53,.13); }
+    .dashboard-top { display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-size: 12px; color: #24365b; padding-bottom: 17px; border-bottom: 1px solid #e9ecf4; }
+    .dot-line { display: inline-flex; gap: 4px; }
+    .dot-line i { width: 7px; height: 7px; border-radius: 50%; background: #dfe5f5; }
+    .dashboard-sub { margin: 17px 0 13px; color: #8490a2; font-size: 10px; font-weight: 800; letter-spacing: 1.5px; }
+    .dash-item { display: flex; gap: 11px; align-items: center; background: #f6f8ff; border: 1px solid #edf1ff; padding: 12px; border-radius: 10px; margin-top: 9px; }
+    .dash-icon { display: grid; place-items: center; width: 40px; height: 40px; flex-shrink: 0; border-radius: 9px; color: #fff; background: linear-gradient(135deg, #7465eb, #a48beb); font-size: 15px; font-weight: 900; }
+    .dash-item:nth-of-type(2) .dash-icon { background: linear-gradient(135deg, #3974e2, #48b2db); }
+    .dash-item b { display: block; font-size: 12px; line-height: 1.4; }
+    .dash-item small { font-size: 10px; color: #8590a3; }
+    .dashboard-foot { display: flex; justify-content: space-between; align-items: center; font-size: 11px; padding: 15px 0 0; color: #75819a; }
+    .dashboard-foot strong { color: #435cdc; }
+    .stat-row { background: #fff; border: 1px solid var(--line); border-radius: 15px; padding: 18px 28px; display: flex; margin: -19px 19px 0; position: relative; z-index: 2; box-shadow: 0 10px 30px rgba(28,52,94,.055); }
+    .stat { flex: 1; display: flex; gap: 12px; align-items: center; justify-content: center; padding: 6px; }
+    .stat + .stat { border-left: 1px solid #e8ecf5; }
+    .stat-icon { width: 37px; height: 37px; background: #eff2ff; color: var(--brand); display: grid; place-items: center; border-radius: 11px; }
+    .stat-icon svg { width: 20px; height: 20px; }
+    .stat strong { display: block; font-weight: 850; font-size: 20px; line-height: 1.12; color: #22345b; }
+    .stat small { color: #8090a6; font-size: 11px; font-weight: 650; }
+    .catalog { padding-top: 77px; scroll-margin-top: 100px; }
+    .section-top { display: flex; justify-content: space-between; align-items: end; gap: 22px; }
+    .kicker { font-size: 11px; font-weight: 850; color: #4962df; letter-spacing: 1.9px; margin-bottom: 5px; }
+    .section-top h2 { margin: 0; font-size: 29px; letter-spacing: -1.05px; }
+    .section-top p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
+    .result-count { font-size: 12px; color: #76839a; white-space: nowrap; padding-bottom: 5px; }
+    .filter-bar { margin-top: 25px; display: flex; justify-content: space-between; gap: 17px; align-items: center; flex-wrap: wrap; }
+    .search { min-width: min(100%, 365px); flex: 0 1 415px; display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid #dfe6f1; height: 48px; padding: 0 14px; border-radius: 11px; color: #7e8da6; }
+    .search:focus-within { border-color: #8ca0ef; box-shadow: 0 0 0 3px #e8edff; }
+    .search svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .search input { background: none; border: 0; outline: 0; width: 100%; min-width: 0; font-size: 13px; color: var(--ink); }
+    .search input::placeholder { color: #a0aabc; }
+    .filters { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .chip { border: 1px solid #dfe6f2; color: #687991; background: #fff; padding: 10px 14px; border-radius: 9px; font-size: 12px; font-weight: 760; }
+    .chip:hover, .chip.active { border-color: #4661dc; color: #fff; background: #3956d1; }
+    .sort { background: #fff; color: #586780; border: 1px solid #dfe6f2; border-radius: 9px; padding: 10px 12px; font-size: 12px; outline-offset: 2px; }
+    .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 335px), 1fr)); gap: 22px; margin: 25px 0 0; }
+    .course-card { min-width: 0; background: #fff; border: 1px solid #e6ebf3; border-radius: 17px; overflow: hidden; transition: transform .2s, box-shadow .2s; box-shadow: 0 4px 15px rgba(29,51,96,.027); }
+    .course-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .cover { height: 192px; position: relative; overflow: hidden; padding: 22px; isolation: isolate; background: #5368de; }
+    .cover.blue { background: linear-gradient(125deg, #184ca0, #4976e6); }
+    .cover.violet { background: linear-gradient(125deg, #5044bc, #9278ed); }
+    .cover.teal { background: linear-gradient(125deg, #087c87, #39bac6); }
+    .cover.orange { background: linear-gradient(125deg, #c06835, #edaa69); }
+    .cover.green { background: linear-gradient(125deg, #258060, #50bc8f); }
+    .cover::before { content: ""; width: 230px; height: 230px; position: absolute; border: 1px solid rgba(255,255,255,.26); border-radius: 50%; right: -58px; top: -70px; box-shadow: 0 0 0 38px rgba(255,255,255,.065), 0 0 0 83px rgba(255,255,255,.045); }
+    .cover::after { content: ""; width: 130px; height: 130px; border-radius: 24px; background: rgba(255,255,255,.12); transform: rotate(35deg); position: absolute; right: 52px; bottom: -75px; }
+    .cover-label { display: inline-flex; align-items: center; gap: 7px; padding: 5px 10px; color: #fff; background: rgba(255,255,255,.17); font-size: 10px; font-weight: 800; border: 1px solid rgba(255,255,255,.22); border-radius: 6px; position: relative; z-index: 1; }
+    .cover-art { position: absolute; right: 24px; top: 26px; opacity: .9; z-index: 1; }
+    .cover-art .device { width: 100px; height: 119px; border: 5px solid rgba(255,255,255,.9); background: rgba(255,255,255,.15); border-radius: 17px; transform: rotate(-10deg); position: relative; box-shadow: 0 15px 15px rgba(0,0,0,.11); }
+    .cover-art .device::before { content: ""; position: absolute; width: 38px; height: 5px; top: 7px; left: 26px; border-radius: 4px; background: rgba(255,255,255,.9); }
+    .cover-art .device::after { content: ""; position: absolute; width: 57px; height: 8px; top: 43px; left: 16px; border-radius: 5px; background: rgba(255,255,255,.65); box-shadow: 0 18px 0 rgba(255,255,255,.4), 0 36px 0 rgba(255,255,255,.4); }
+    .cover-art .tile { width: 56px; height: 58px; display: grid; place-items: center; position: absolute; top: 52px; left: -39px; background: #f1f4ff; border-radius: 12px; color: #4555c8; font-size: 25px; font-weight: 850; box-shadow: 0 12px 25px rgba(21,17,73,.2); transform: rotate(9deg); }
+    .cover-caption { position: absolute; left: 23px; bottom: 22px; font-size: 12px; color: #fff; opacity: .9; letter-spacing: 1.1px; font-weight: 850; z-index: 1; }
+    .card-content { padding: 24px 23px 20px; }
+    .card-meta { display: flex; gap: 7px; flex-wrap: wrap; }
+    .pill { border-radius: 6px; background: #eef2ff; color: #4961ca; padding: 5px 9px; font-size: 10px; font-weight: 800; }
+    .pill.pale { background: #f2f4f8; color: #7b8799; }
+    .card-title { font-size: 19px; line-height: 1.4; letter-spacing: -.6px; margin: 15px 0 10px; min-height: 52px; overflow-wrap: anywhere; }
+    .card-summary { color: #77849a; font-size: 12px; line-height: 1.85; margin: 0; min-height: 43px; }
+    .card-line { margin-top: 22px; padding: 16px 0 0; border-top: 1px solid #edf0f5; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .lecture-count { color: #71809a; font-size: 12px; }
+    .lecture-count strong { color: #30466d; }
+    .view-btn { color: #3b55ca; background: #f0f3ff; border: 0; border-radius: 9px; padding: 10px 12px; font-size: 12px; font-weight: 800; }
+    .view-btn:hover { background: #e2e9ff; }
+    .card-manage { display: flex; gap: 8px; margin-top: 10px; }
+    .empty { grid-column: 1 / -1; background: #fff; border: 1px dashed #cfd9ea; padding: 56px 20px; border-radius: 14px; text-align: center; color: #71809a; }
+    .empty strong { display: block; color: #324564; margin-bottom: 8px; }
+    .admin-panel { display: none; margin: 30px 0 0; border: 1px solid #cad6fa; border-radius: 15px; background: linear-gradient(135deg,#f0f4ff,#fff); padding: 25px; }
+    .managing .admin-panel { display: block; }
+    .admin-title { display: flex; align-items: center; gap: 10px; font-weight: 850; color: #253b76; margin-bottom: 5px; }
+    .admin-panel p { font-size: 12px; color: #697b9a; margin: 0 0 17px; }
+    .admin-actions { display: flex; gap: 9px; flex-wrap: wrap; }
+    .admin-action { background: #fff; border: 1px solid #cddaf7; color: #425a9c; padding: 10px 14px; font-size: 12px; font-weight: 780; border-radius: 9px; }
+    .admin-action:hover { background: #e9efff; }
+    .admin-action.main { background: #3756d4; border-color: #3756d4; color: #fff; }
+    .admin-action.main:hover { background: #2d47b0; }
+    .manage-only { display: none; }
+    .managing .manage-only { display: inline-flex; }
+    .minor-button { border: 1px solid #e0e7f1; background: #fff; color: #66748f; padding: 8px 10px; border-radius: 7px; font-size: 11px; font-weight: 750; }
+    .minor-button:hover { background: #f2f5fd; }
+    .minor-button.danger { color: #bd5360; }
+    .guide { margin-top: 85px; padding-bottom: 80px; scroll-margin-top: 100px; }
+    .guide-shell { display: grid; grid-template-columns: .72fr 1.28fr; gap: 34px; align-items: center; border-top: 1px solid #e4eaf3; padding-top: 40px; }
+    .guide-heading h2 { font-size: 24px; margin: 8px 0; letter-spacing: -.8px; }
+    .guide-heading p { color: #7d8aa0; font-size: 13px; margin: 0; }
+    .guide-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .step { background: #fff; border: 1px solid #e8edf5; border-radius: 12px; padding: 20px; }
+    .step-num { color: #5269e1; font-size: 11px; font-weight: 850; letter-spacing: 1px; }
+    .step h3 { margin: 11px 0 5px; font-size: 14px; }
+    .step p { margin: 0; font-size: 11px; line-height: 1.65; color: #8090a2; }
+    footer { background: #142044; padding: 33px 0; color: #bac5e4; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; align-items: center; }
+    .footer-inner strong { color: #fff; font-size: 17px; letter-spacing: -.4px; }
+    .footer-inner small { font-size: 11px; color: #9daecc; }
+    dialog { border: 1px solid #e0e6f0; border-radius: 19px; width: min(640px, calc(100vw - 32px)); max-height: min(88vh, 900px); padding: 0; box-shadow: 0 35px 110px rgba(12,21,51,.27); color: var(--ink); }
+    dialog::backdrop { background: rgba(13,22,52,.66); backdrop-filter: blur(4px); }
+    dialog[open] { animation: appear .16s ease-out; }
+    @keyframes appear { from { opacity: .4; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .dialog-head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; padding: 24px 28px 20px; border-bottom: 1px solid #ecf0f6; }
+    .dialog-head h2 { line-height: 1.45; margin: 4px 0; font-size: 22px; letter-spacing: -.65px; }
+    .dialog-head p { font-size: 12px; color: #7d8ca0; margin: 7px 0 0; }
+    .close-btn { background: #f1f4fa; color: #65748b; border: 0; border-radius: 9px; width: 34px; height: 34px; font-size: 22px; flex: 0 0 auto; line-height: 1; }
+    .close-btn:hover { background: #e9edfa; }
+    .dialog-body { padding: 23px 28px 27px; max-height: calc(88vh - 130px); overflow-y: auto; }
+    .detail-meta { display: flex; gap: 7px; margin-bottom: 10px; flex-wrap: wrap; }
+    .detail-desc { font-size: 13px; line-height: 1.85; color: #77849a; margin: 9px 0 24px; }
+    .material-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .material-top h3 { margin: 0; font-size: 16px; }
+    .material-list { display: grid; gap: 10px; }
+    .material { border: 1px solid #e6ebf3; background: #fdfdff; padding: 17px; border-radius: 11px; display: flex; justify-content: space-between; gap: 15px; align-items: center; }
+    .material-main { min-width: 0; }
+    .material-meta { color: #7484a0; font-size: 11px; font-weight: 700; }
+    .material-name { margin: 5px 0; font-size: 13px; color: #26395e; font-weight: 800; overflow-wrap: anywhere; }
+    .material-url { font-size: 10px; color: #9aa5b4; word-break: break-all; }
+    .material-actions { display: flex; flex-shrink: 0; flex-direction: column; gap: 6px; align-items: flex-end; }
+    .material-link { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; background: #ecf0ff; color: #3955c4; border-radius: 8px; padding: 9px 12px; font-size: 11px; font-weight: 850; white-space: nowrap; }
+    .material-link:hover { background: #dfe6ff; }
+    .material-invalid { color: #c35c5b; font-size: 11px; }
+    .material-manage { display: flex; gap: 5px; }
+    .no-materials { background: #f6f8fb; border-radius: 10px; padding: 30px; color: #8190a2; font-size: 12px; text-align: center; }
+    .form-field { margin-bottom: 17px; }
+    .form-field label { display: block; font-size: 12px; color: #3c4d70; font-weight: 800; margin-bottom: 7px; }
+    .form-field input, .form-field select, .form-field textarea { width: 100%; min-height: 43px; border: 1px solid #dce4f1; background: #fff; padding: 10px 12px; outline: none; color: #263958; border-radius: 9px; font-size: 13px; }
+    .form-field textarea { resize: vertical; min-height: 95px; }
+    .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: #8da2ed; box-shadow: 0 0 0 3px #edf1ff; }
+    .form-field .hint { font-size: 11px; color: #8a98a9; margin: 5px 0 0; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .form-actions { margin-top: 22px; display: flex; justify-content: flex-end; gap: 8px; }
+    .form-actions button { border-radius: 9px; min-height: 42px; padding: 9px 17px; font-size: 12px; font-weight: 800; }
+    .cancel { border: 1px solid #e0e6f2; background: #fff; color: #66748a; }
+    .save { border: 1px solid #3957d5; background: #3957d5; color: #fff; }
+    .save:hover { background: #2a46bc; }
+    .toast { position: fixed; bottom: 25px; left: 50%; z-index: 80; transform: translate(-50%, 18px); background: #1c2e56; color: #fff; padding: 12px 19px; font-size: 12px; border-radius: 10px; box-shadow: 0 12px 30px rgba(19,34,71,.22); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; max-width: min(90vw, 580px); text-align: center; }
+    .toast.visible { opacity: 1; transform: translate(-50%,0); }
+    @media (max-width: 980px) { .hero-shell { padding: 48px 43px; grid-template-columns: 1fr .85fr; } .hero-art { transform: rotate(1.5deg); } .guide-shell { grid-template-columns: 1fr; } }
+    @media (max-width: 760px) { .site-header { height: 70px; } .header-inner { gap: 10px; } .desktop-nav { display: none; } .header-admin { margin-left: auto; font-size: 12px; padding: 9px 11px; } .wrap { width: min(100% - 30px, 1192px); } .hero { padding-top: 18px; } .hero-shell { padding: 39px 29px 32px; grid-template-columns: 1fr; min-height: initial; gap: 25px; } .hero h1 { font-size: 35px; letter-spacing: -1.4px; } .hero-art { justify-self: center; width: min(100%, 320px); transform: rotate(0); } .stat-row { margin: -12px 8px 0; padding: 14px 4px; } .stat { flex-direction: column; text-align: center; gap: 6px; } .stat-icon { width: 31px; height: 31px; } .stat strong { font-size: 18px; } .stat small { font-size: 10px; } .catalog { padding-top: 54px; } .section-top { align-items: flex-start; } .result-count { padding-top: 12px; } .search { flex: 1 1 100%; } .filter-bar { gap: 10px; } .filters { gap: 7px; } .chip { padding: 8px 11px; } .course-grid { gap: 15px; } .guide { margin-top: 56px; } .guide-steps { grid-template-columns: 1fr; } .step { padding: 17px; } .footer-inner { flex-direction: column; align-items: flex-start; gap: 7px; } .dialog-head, .dialog-body { padding-left: 20px; padding-right: 20px; } }
+    @media (max-width: 420px) { .hero h1 { font-size: 30px; } .hero-shell { padding: 33px 23px 26px; } .hero-art { display: none; } .stat-icon { display: none; } .stat-row { padding: 18px 1px; } .stat strong { font-size: 18px; } .section-top h2 { font-size: 25px; } .form-grid { grid-template-columns: 1fr; gap: 0; } .material { align-items: flex-start; flex-direction: column; } .material-actions { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
   </style>
 </head>
 <body>
-  <div class="progress" id="scrollProgress" aria-hidden="true"></div>
-  <header class="site-top">
-    <div class="top-inner">
-      <a class="brand" href="#top" aria-label="문서 맨 위로">
-        <span class="brand-symbol" aria-hidden="true">▦</span>
-        MOBILE DESIGN LAB <em>강의 인포그래픽</em>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#home" aria-label="OPEN MOOC 홈으로 이동">
+        <span class="brand-symbol" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="brand-word"><strong>OPEN MOOC</strong><small>LEARNING CENTER</small></span>
       </a>
-      <div class="top-actions">
-        <button class="action mobile-toc-btn" id="menuToggle" type="button" aria-expanded="false" aria-controls="courseNav">☰ 목차</button>
-        <button class="action primary" type="button" onclick="window.print()" aria-label="인쇄 또는 PDF로 저장">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v7H6z"/></svg>
-          인쇄 / PDF 저장
-        </button>
-      </div>
+      <nav class="desktop-nav" aria-label="메인 메뉴">
+        <a href="#home">홈</a>
+        <a href="#courses">전체 강좌</a>
+        <a href="#guide">이용 안내</a>
+      </nav>
+      <button id="manageToggle" class="header-admin" type="button" aria-pressed="false">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v8M8 12h8"/><circle cx="12" cy="12" r="9"/></svg>
+        <span id="manageLabel">콘텐츠 관리</span>
+      </button>
     </div>
   </header>
-  <div class="layout" id="top">
-    <aside class="aside" id="courseNav" aria-label="강의 목차">
-      <div class="aside-sticky">
-        <div class="rail-caption">COURSE INDEX</div>
-        <nav class="toc" id="toc">
-          <a href="#overview"><b>01</b> 모바일 웹앱 이해</a>
-          <a href="#uiux"><b>02</b> UI와 UX 디자인</a>
-          <a href="#planning"><b>03</b> 기획 프로세스</a>
-          <a href="#requirements"><b>04</b> 요구사항 분석</a>
-          <a href="#structure"><b>05</b> 정보구조 및 흐름</a>
-          <a href="#wireframe"><b>06</b> 와이어프레임</a>
-          <a href="#responsive"><b>07</b> 반응형 UI</a>
-          <a href="#designsystem"><b>08</b> 디자인 시스템</a>
-          <a href="#prototype"><b>09</b> 프로토타입 평가</a>
-          <a href="#engineering"><b>10</b> 기술적 고려사항</a>
-          <a href="#practice"><b>11</b> 실습 과제</a>
-          <a href="#summary"><b>12</b> 핵심 요약</a>
-        </nav>
-        <div class="aside-note">
-          <small>LEARNING PATH</small>
-          <p><strong>문제 정의 → 요구사항 → 화면 설계 → 프로토타입 → 검증</strong><br>모바일 서비스 개발 전 반드시 이해해야 할 핵심 흐름이다.</p>
+
+  <main id="home">
+    <section class="hero" aria-label="무크센터 소개">
+      <div class="wrap">
+        <div class="hero-shell">
+          <div class="hero-copy">
+            <span class="hero-eyebrow">OPEN DIGITAL LEARNING</span>
+            <h1>배움의 시작부터<br><em>실전 설계까지.</em></h1>
+            <p>모바일 웹앱 디자인부터 Android와 iOS 개발까지.<br>필요한 강의와 학습자료를 하나의 공간에서 만나보세요.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#courses">강좌 둘러보기 <span aria-hidden="true">→</span></a>
+              <a class="btn btn-ghost" href="#guide">이용 방법 확인 <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="dashboard">
+              <div class="dashboard-top"><span>학습 콘텐츠 탐색</span><span class="dot-line"><i></i><i></i><i></i></span></div>
+              <div class="dashboard-sub">FEATURED LEARNING TRACK</div>
+              <div class="dash-item"><span class="dash-icon">01</span><span><b>모바일 웹·앱 디자인</b><small>기획 · UX/UI · 반응형 설계</small></span></div>
+              <div class="dash-item"><span class="dash-icon">02</span><span><b>Android &amp; iOS</b><small>플랫폼 비교 · 앱 아키텍처</small></span></div>
+              <div class="dashboard-foot"><span>여러 강의자료를 한눈에</span><strong>OPEN MOOC ↗</strong></div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-row" aria-label="등록된 강의 현황">
+          <div class="stat"><span class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h7"/></svg></span><span><strong id="courseTotal">2</strong><small>개설 강좌</small></span></div>
+          <div class="stat"><span class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 4h10l3 3v13H6zM16 4v4h3M9 12h7M9 16h7"/></svg></span><span><strong id="materialTotal">2</strong><small>강의자료</small></span></div>
+          <div class="stat"><span class="stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="7" height="7" rx="1"/><rect x="14" y="5" width="7" height="7" rx="1"/><rect x="3" y="15" width="7" height="5" rx="1"/><rect x="14" y="15" width="7" height="5" rx="1"/></svg></span><span><strong id="categoryTotal">1</strong><small>강좌 분야</small></span></div>
         </div>
       </div>
-    </aside>
-    <main class="content">
-      <div class="hero">
-        <div class="hero-copy">
-          <div class="eyebrow">MOBILE WEB APPLICATION</div>
-          <h1>모바일 웹앱<br><span class="accent">디자인 기획 및 설계</span></h1>
-          <p class="hero-desc">사용자 문제 정의에서 UI/UX 디자인, 정보구조, 화면 설계, 프로토타입 검증까지. 모바일 웹앱 개발의 전체 과정을 시각적으로 학습하는 강의 인포그래픽.</p>
-          <div class="hero-tags"><span>기획 · 분석</span><span>UI / UX</span><span>반응형 웹</span><span>프로토타입</span></div>
-        </div>
-        <div class="hero-visual" aria-label="모바일 웹앱 화면을 표현한 장식 일러스트">
-          <div class="float-badge one"><i>●</i> MOBILE FIRST</div>
-          <div class="hero-phone">
-            <div class="notch"></div>
-            <div class="phone-bar"><b>캠퍼스ON</b><span>☰</span></div>
-            <div class="phone-chip">⌕　강의실을 검색하세요</div>
-            <div class="phone-banner">캠퍼스를 더 쉽게<br><small>필요한 정보를 한눈에 확인하세요</small></div>
-            <div class="phone-tiles"><div><span>⌕</span>강의실 검색</div><div><span>◇</span>캠퍼스 지도</div><div><span>▤</span>공지사항</div><div><span>☆</span>즐겨찾기</div></div>
-          </div>
-          <div class="float-badge two"><i>✓</i> UX READY</div>
-        </div>
+    </section>
+
+    <section id="courses" class="catalog wrap" aria-labelledby="catalogTitle">
+      <div class="section-top">
+        <div><div class="kicker">COURSE CATALOG</div><h2 id="catalogTitle">전체 강좌 살펴보기</h2><p>관심 있는 강좌를 선택해 강의안·실습·참고자료로 이동하세요.</p></div>
+        <div id="resultCount" class="result-count" aria-live="polite">전체 2개 강좌</div>
+      </div>
+      <div class="filter-bar">
+        <label class="search">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+          <span class="sr-only">강좌 검색</span>
+          <input id="searchInput" type="search" placeholder="강좌명 또는 학습자료를 검색하세요" autocomplete="off">
+        </label>
+        <div class="filters" id="categoryFilters" aria-label="분야별 강좌 필터"></div>
+        <label><span class="sr-only">강좌 정렬</span><select id="sortSelect" class="sort"><option value="recent">최근 등록순</option><option value="title">가나다순</option><option value="resources">자료 많은 순</option></select></label>
       </div>
 
-      <div class="quickstats" aria-label="강의 핵심 수치">
-        <div class="stat"><div class="number">12</div><span>핵심 학습<br>영역</span></div>
-        <div class="stat"><div class="number">06</div><span>서비스 기획<br>및 설계 단계</span></div>
-        <div class="stat"><div class="number">08</div><span>프로젝트<br>실습 단계</span></div>
-        <div class="stat"><div class="number">100</div><span>실습 평가<br>총점</span></div>
+      <div id="adminPanel" class="admin-panel" role="region" aria-label="콘텐츠 관리 도구">
+        <div class="admin-title">콘텐츠 관리 도구</div>
+        <p>추가·수정 내용은 우선 <b>현재 브라우저에만 저장</b>됩니다. 전체 수강생에게 공개하려면 <b>courses.json 다운로드</b> 후 웹 호스팅 공간의 같은 파일을 교체하세요. 별도 로그인·서버 관리 기능은 없습니다.</p>
+        <div class="admin-actions">
+          <button type="button" class="admin-action main" id="addCourse">+ 새 강좌 등록</button>
+          <button type="button" class="admin-action" id="exportJson">courses.json 다운로드</button>
+          <button type="button" class="admin-action" id="importJson">JSON 파일 가져오기</button>
+          <button type="button" class="admin-action" id="resetLocal">브라우저 편집본 초기화</button>
+          <input id="importInput" type="file" accept=".json,application/json" hidden>
+        </div>
       </div>
+      <div id="courseGrid" class="course-grid" aria-live="polite"></div>
+    </section>
 
-      <section class="chapter" id="overview">
-        <div class="chapter-heading"><span class="chapter-num">01</span><div><h2>모바일 웹앱의 개념과 특징</h2><p>웹 기술로 동작하는 모바일 서비스의 특성과 구현 방식을 이해한다.</p></div></div>
-        <div class="stack">
-          <div class="intro-lead"><div><span class="pill blue">핵심 개념</span><strong>모바일 웹앱 = 웹브라우저에서 실행되는 응용 서비스</strong><p>HTML5는 구조, CSS3는 디자인, JavaScript는 동작을 담당한다. 웹앱은 정보 제공을 넘어 검색, 입력, 서버 통신, 데이터 처리 등의 상호작용을 수행한다.</p></div><div class="glyph" aria-hidden="true">▣</div></div>
-          <div class="cols-3">
-            <article class="card type-card"><div class="type-head"><span class="type-icon blue" aria-hidden="true">⌕</span><span class="pill blue">BROWSER</span></div><strong>모바일 웹앱</strong><p>URL로 접속하며 다양한 모바일 브라우저에서 공통 웹 코드를 사용할 수 있다.</p></article>
-            <article class="card type-card green"><div class="type-head"><span class="type-icon teal" aria-hidden="true">▦</span><span class="pill teal">OS APP</span></div><strong>네이티브 앱</strong><p>Kotlin, Swift 등으로 개발하며 운영체제 고유 API와 배포 체계를 활용한다.</p></article>
-            <article class="card type-card purple"><div class="type-head"><span class="type-icon purple" aria-hidden="true">◎</span><span class="pill purple">WEB + APP</span></div><strong>PWA</strong><p>웹앱에 설치 가능한 경험, 캐시, 일부 오프라인 기능 등을 추가할 수 있다.</p></article>
-          </div>
-          <div class="card"><h3>개발 방식 비교</h3><div class="table-scroll"><table class="comparison"><thead><tr><th>항목</th><th>모바일 웹앱</th><th>네이티브 앱</th><th>PWA</th></tr></thead><tbody>
-            <tr><td>실행</td><td>모바일 브라우저</td><td>운영체제 앱</td><td>브라우저 / 설치 형태</td></tr>
-            <tr><td>개발 기술</td><td>HTML · CSS · JS</td><td>Kotlin · Swift 등</td><td>웹 기술 + PWA 기능</td></tr>
-            <tr><td>접근 방식</td><td>URL</td><td>앱 설치 후 실행</td><td>URL 또는 설치 아이콘</td></tr>
-            <tr><td>기기 기능</td><td>브라우저 지원 범위</td><td>플랫폼 API 활용</td><td>브라우저 지원 범위</td></tr>
-          </tbody></table></div><p class="footnote">※ PWA의 설치·오프라인 지원과 기기 접근 기능은 브라우저 및 운영체제에 따라 달라진다.</p></div>
+    <section class="guide wrap" id="guide" aria-labelledby="guideTitle">
+      <div class="guide-shell">
+        <div class="guide-heading"><div class="kicker">HOW TO USE</div><h2 id="guideTitle">이용 방법</h2><p>강좌 탐색부터 자료 확인까지 간편하게 이용할 수 있습니다.</p></div>
+        <div class="guide-steps">
+          <div class="step"><span class="step-num">STEP 01</span><h3>강좌 탐색</h3><p>원하는 강좌를 검색하거나 분야별로 살펴봅니다.</p></div>
+          <div class="step"><span class="step-num">STEP 02</span><h3>강의자료 확인</h3><p>강좌를 열어 주차별 학습자료 목록을 확인합니다.</p></div>
+          <div class="step"><span class="step-num">STEP 03</span><h3>자료 바로가기</h3><p>자료 열기를 클릭하면 등록된 링크가 새 탭에 열립니다.</p></div>
         </div>
-      </section>
+      </div>
+    </section>
+  </main>
 
-      <section class="chapter" id="uiux">
-        <div class="chapter-heading"><span class="chapter-num">02</span><div><h2>UI와 UX 디자인</h2><p>보이는 인터페이스와 사용자가 경험하는 과정을 함께 설계한다.</p></div></div>
-        <div class="stack">
-          <div class="cols-2">
-            <article class="concept ui"><div class="concept-head"><b>UI</b><span aria-hidden="true">▤</span></div><span class="pill blue">User Interface</span><p>사용자가 직접 보고 조작하는 화면과 구성 요소</p><ul><li>버튼, 입력창, 카드, 아이콘</li><li>색상, 글꼴, 여백, 배치</li><li>상단·하단 탐색 메뉴</li></ul></article>
-            <article class="concept ux"><div class="concept-head"><b>UX</b><span aria-hidden="true">↗</span></div><span class="pill teal">User Experience</span><p>사용자가 목적을 달성하기까지의 전체 이용 경험</p><ul><li>화면 이동과 작업 수행 순서</li><li>사용 편의성, 작업 효율성</li><li>접근성, 오류 방지, 만족도</li></ul></article>
-          </div>
-          <div class="bridge"><span>보기 쉬운 화면(UI)</span><span class="plus">+</span><span>이용하기 쉬운 흐름(UX)</span><span aria-hidden="true">→</span><span>사용자 중심 서비스</span></div>
-          <div class="card"><div class="keyline">사례로 이해하기</div><h3>음식 주문 서비스</h3><p><strong>UI:</strong> 음식 이미지, 가격, 검색창, 주문 버튼을 보기 좋게 배치한다.</p><p><strong>UX:</strong> 원하는 음식을 빠르게 찾고, 적은 단계로 주문을 완료하게 한다.</p></div>
-        </div>
-      </section>
+  <footer>
+    <div class="wrap footer-inner"><strong>OPEN MOOC <small>LEARNING CENTER</small></strong><small>디지털 학습을 위한 강의자료 허브 · HTML5 기반 강좌 포털</small></div>
+  </footer>
 
-      <section class="chapter" id="planning">
-        <div class="chapter-heading"><span class="chapter-num">03</span><div><h2>모바일 웹앱 기획 프로세스</h2><p>무엇을 만들 것인가에서 어떻게 검증할 것인가까지의 여섯 단계.</p></div></div>
-        <div class="stack">
-          <div class="flowgrid" aria-label="6단계 기획 프로세스">
-            <div class="flowstep" data-step="01"><div class="flowicon" aria-hidden="true">⌖</div><h3>서비스 목표 정의</h3><p>문제 상황, 서비스 목적, 기대 효과를 명확히 한다.</p></div>
-            <div class="flowstep" data-step="02"><div class="flowicon" aria-hidden="true">◎</div><h3>사용자 요구 분석</h3><p>대상 사용자, 사용 환경, 필요한 기능을 조사한다.</p></div>
-            <div class="flowstep" data-step="03"><div class="flowicon" aria-hidden="true">☷</div><h3>기능과 정보구조</h3><p>핵심 기능, 메뉴 계층, 콘텐츠 구조를 결정한다.</p></div>
-            <div class="flowstep" data-step="04"><div class="flowicon" aria-hidden="true">▤</div><h3>UI/UX 화면 설계</h3><p>와이어프레임과 사용자 흐름도를 작성한다.</p></div>
-            <div class="flowstep" data-step="05"><div class="flowicon" aria-hidden="true">▶</div><h3>프로토타입 검증</h3><p>화면 전환을 시뮬레이션하고 불편함을 찾는다.</p></div>
-            <div class="flowstep" data-step="06"><div class="flowicon" aria-hidden="true">✓</div><h3>구현 · 테스트 · 개선</h3><p>실제 개발 후 성능, 보안, 사용성을 점검한다.</p></div>
-          </div>
-          <div class="case-box"><div><span class="pill teal">기획 사례 · 캠퍼스ON</span><h3>강의실을 더 빠르게 찾는 모바일 서비스</h3><p>여러 웹페이지를 거쳐 강의실·건물 위치를 찾아야 하는 문제를 해결한다. 강의실 검색, 위치 안내, 즐겨찾기 기능을 중심으로 모바일 서비스를 설계한다.</p></div><div class="case-bubbles"><span>대학생</span><span>강의실 검색</span><span>건물 위치</span><span>공지사항</span></div></div>
-          <p class="footnote">반복 개발: 사용성 검증에서 문제가 발견되면 요구사항이나 화면 설계 단계로 돌아가 수정할 수 있다.</p>
-        </div>
-      </section>
+  <dialog id="detailDialog" aria-labelledby="detailTitle">
+    <div class="dialog-head"><div><div class="kicker">COURSE OVERVIEW</div><h2 id="detailTitle">강좌 상세</h2></div><button class="close-btn" data-close="detailDialog" type="button" aria-label="닫기">×</button></div>
+    <div id="detailBody" class="dialog-body"></div>
+  </dialog>
 
-      <section class="chapter" id="requirements">
-        <div class="chapter-heading"><span class="chapter-num">04</span><div><h2>사용자 조사와 요구사항 분석</h2><p>누가, 왜, 어떤 기능을 사용하는지 정의한다.</p></div></div>
-        <div class="stack">
-          <div class="cols-2">
-            <div class="persona"><div class="keyline">PERSONA · 예시 사용자</div><div class="persona-head"><div class="avatar" aria-hidden="true">♙</div><div><b>대학생 A · 22세</b><small>스마트폰 중심 이용자</small></div></div><div class="persona-items"><div><b>목표</b>강의실 위치를 빠르게 확인</div><div><b>불편</b>정보가 여러 사이트에 분산</div><div><b>사용 상황</b>강의 시작 전 이동 중</div><div><b>필요 기능</b>검색·지도·즐겨찾기</div></div><p class="footnote">교육용 가상 페르소나. 실제 서비스에서는 사용자 조사로 검증한다.</p></div>
-            <div class="card"><h3>MVP — 최소 기능 제품</h3><p>서비스 가치를 확인하기 위한 핵심 기능부터 구현하고, 선택 기능은 이후 확장한다.</p><div class="feature-list">
-              <div class="feature-row"><span class="check">✓</span>강의실 검색<span class="tag">필수</span></div>
-              <div class="feature-row"><span class="check">✓</span>강의실 상세 정보<span class="tag">필수</span></div>
-              <div class="feature-row"><span class="check">✓</span>건물 위치 표시<span class="tag">필수</span></div>
-              <div class="feature-row optional"><span class="check">＋</span>즐겨찾기·공지 알림<span class="tag">선택</span></div>
-            </div></div>
-          </div>
-          <div class="requirements">
-            <div class="req-box"><span class="pill blue">FR</span><h3 style="margin:10px 0 6px;font-size:15px">기능 요구사항</h3><ul><li>강의실 검색 결과 표시</li><li>건물·층수·위치 확인</li><li>즐겨찾기 등록·해제</li><li>공지사항 상세 조회</li></ul></div>
-            <div class="req-box teal"><span class="pill teal">NFR</span><h3 style="margin:10px 0 6px;font-size:15px">비기능 요구사항</h3><ul><li>다양한 화면 크기 지원</li><li>접근 가능한 글꼴과 버튼</li><li>HTTPS 통신과 권한 관리</li><li>오류 상태와 응답속도 관리</li></ul></div>
-          </div>
-          <div class="card"><h3>사용자 스토리(User Story)</h3><p>“나는 <strong>대학생</strong>으로서 <strong>강의실을 검색</strong>하여 <strong>해당 건물을 빠르게 찾고 싶다.</strong>”</p><p class="minor">이 한 문장에서 검색 입력창, 검색 결과 목록, 상세 정보, 지도 연결의 요구사항을 도출할 수 있다.</p></div>
-        </div>
-      </section>
+  <dialog id="courseDialog" aria-labelledby="courseFormTitle">
+    <div class="dialog-head"><div><div class="kicker">COURSE EDITOR</div><h2 id="courseFormTitle">새 강좌 등록</h2><p>강좌를 만든 후 자료 링크를 추가할 수 있습니다.</p></div><button class="close-btn" data-close="courseDialog" type="button" aria-label="닫기">×</button></div>
+    <form id="courseForm" class="dialog-body">
+      <input type="hidden" name="id" id="courseId">
+      <div class="form-field"><label for="courseName">강좌명 *</label><input id="courseName" name="title" required maxlength="110" placeholder="예: 인공지능과 생성형 AI"></div>
+      <div class="form-grid"><div class="form-field"><label for="courseCategory">분야 *</label><select id="courseCategory" name="category" required></select></div><div class="form-field"><label for="courseLevel">학습 단계</label><input id="courseLevel" name="level" maxlength="30" placeholder="예: 입문 · 실습"></div></div>
+      <div class="form-field"><label for="courseSummary">강좌 소개</label><textarea id="courseSummary" name="description" maxlength="350" placeholder="강좌에서 배우는 내용을 간단하게 입력하세요."></textarea></div>
+      <div class="form-field"><label for="courseTheme">카드 테마 색상</label><select id="courseTheme" name="theme"><option value="blue">블루</option><option value="violet">바이올렛</option><option value="teal">민트</option><option value="orange">오렌지</option><option value="green">그린</option></select></div>
+      <div class="form-actions"><button class="cancel" type="button" data-close="courseDialog">취소</button><button class="save" type="submit">강좌 저장</button></div>
+    </form>
+  </dialog>
 
-      <section class="chapter" id="structure">
-        <div class="chapter-heading"><span class="chapter-num">05</span><div><h2>정보구조도와 사용자 흐름도</h2><p>서비스의 전체 메뉴 체계와 특정 작업의 화면 이동 경로를 설계한다.</p></div></div>
-        <div class="stack">
-          <div class="card"><div class="keyline">INFORMATION ARCHITECTURE</div><h3>정보구조도(IA): 서비스 전체를 한눈에</h3><div class="ia-root">캠퍼스ON 메인 화면</div><div class="ia-connector" aria-hidden="true"></div><div class="ia-items">
-            <div class="ia-item"><strong>홈</strong><em>서비스 안내<br>빠른 검색</em></div>
-            <div class="ia-item"><strong>강의실 검색</strong><em>검색 결과<br>상세 정보</em></div>
-            <div class="ia-item"><strong>캠퍼스 정보</strong><em>지도<br>공지사항</em></div>
-            <div class="ia-item"><strong>마이페이지</strong><em>즐겨찾기<br>설정</em></div>
-          </div></div>
-          <div class="card"><div class="keyline">USER FLOW</div><h3>사용자 흐름도: 강의실 검색 과정</h3><div class="simple-flow"><span>홈</span><b>→</b><span>강의실 검색</span><b>→</b><span>결과 확인</span><b>→</b><span>상세 정보</span><b>→</b><span>위치 확인</span></div>
-            <div class="branch-flow"><div class="branch yes">결과가 있을 때 <small>상세 정보 → 지도 보기</small></div><div class="branch no">결과가 없을 때 <small>안내 메시지 → 검색어 수정</small></div></div>
-            <p class="footnote">정보구조도는 “어떤 화면이 있는가”, 사용자 흐름도는 “어떤 순서로 사용하는가”를 설명한다.</p>
-          </div>
-        </div>
-      </section>
+  <dialog id="materialDialog" aria-labelledby="materialFormTitle">
+    <div class="dialog-head"><div><div class="kicker">LEARNING MATERIAL</div><h2 id="materialFormTitle">강의자료 추가</h2><p>웹주소(https://...) 또는 같은 폴더의 HTML 파일명을 입력하세요.</p></div><button class="close-btn" data-close="materialDialog" type="button" aria-label="닫기">×</button></div>
+    <form id="materialForm" class="dialog-body">
+      <input type="hidden" id="materialCourseId" name="courseId">
+      <input type="hidden" id="materialId" name="materialId">
+      <div class="form-field"><label for="materialName">자료명 *</label><input id="materialName" name="title" maxlength="130" required placeholder="예: 1주차 강의안 — 모바일 UX 설계"></div>
+      <div class="form-grid"><div class="form-field"><label for="materialWeek">주차 / 구분</label><input id="materialWeek" name="week" maxlength="35" placeholder="예: 1주차"></div><div class="form-field"><label for="materialType">자료 유형 *</label><select name="type" id="materialType"><option value="강의안">강의안</option><option value="실습">실습</option><option value="영상">영상</option><option value="참고자료">참고자료</option><option value="과제">과제</option><option value="기타">기타</option></select></div></div>
+      <div class="form-field"><label for="materialUrl">강의자료 주소 *</label><input id="materialUrl" name="url" maxlength="1024" required placeholder="https://example.com/lesson 또는 lesson.html"><p class="hint">위험한 URL 형식은 등록할 수 없습니다. 예시 파일명은 실제 자료 파일과 연결해야 합니다.</p></div>
+      <div class="form-actions"><button class="cancel" type="button" data-close="materialDialog">취소</button><button class="save" type="submit">자료 저장</button></div>
+    </form>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-      <section class="chapter" id="wireframe">
-        <div class="chapter-heading"><span class="chapter-num">06</span><div><h2>와이어프레임과 화면 설계서</h2><p>화면을 구현하기 전에 정보 배치와 각 요소의 역할을 명확히 한다.</p></div></div>
-        <div class="stack">
-          <div class="card"><div class="keyline">WIREFRAME · 메인 화면 예시</div><div class="wireframe-layout">
-            <div class="device-container"><div class="device"><div class="device-top"></div><div class="device-bar"><span>캠퍼스ON</span><span>☰</span></div><div class="device-search">⌕　건물 또는 강의실 검색</div><div class="device-promo">강의실을 빠르게 찾아보세요<br><small>강의실 검색 및 위치 안내</small></div><div class="device-menu"><span><i>⌕</i>강의실 검색</span><span><i>◇</i>캠퍼스 지도</span><span><i>▤</i>공지사항</span><span><i>☆</i>즐겨찾기</span></div><div class="device-bottom"><span>⌂ 홈</span><span>⌕ 검색</span><span>☆ 저장</span><span>● 내 정보</span></div></div></div>
-            <div class="annotation">
-              <div class="annotation-row"><span class="bubble-num">1</span><div><strong>Header · 상단 탐색</strong><span>앱 이름, 현재 화면 정보, 전체 메뉴 제공</span></div></div>
-              <div class="annotation-row"><span class="bubble-num">2</span><div><strong>Search · 핵심 기능</strong><span>사용 빈도가 높은 검색을 화면 상단에 배치</span></div></div>
-              <div class="annotation-row"><span class="bubble-num">3</span><div><strong>Content · 주요 콘텐츠</strong><span>안내 카드와 핵심 서비스 메뉴를 직관적으로 구성</span></div></div>
-              <div class="annotation-row"><span class="bubble-num">4</span><div><strong>Bottom Navigation · 하단 탐색</strong><span>자주 이동하는 주요 기능을 일관된 위치에 배치</span></div></div>
-            </div>
-          </div></div>
-          <div class="card"><h3>화면 설계서 예시 — 강의실 검색</h3><div class="table-scroll"><table class="comparison"><thead><tr><th style="width:30%">설계 항목</th><th>정의 내용</th></tr></thead><tbody>
-            <tr><td>화면 ID / 목적</td><td>SCR-002 / 강의실 검색 및 조회</td></tr>
-            <tr><td>입력 데이터</td><td>건물명 또는 강의실 번호</td></tr>
-            <tr><td>출력 데이터</td><td>강의실 목록, 건물명, 층수</td></tr>
-            <tr><td>사용자 동작</td><td>검색어 입력 → 검색 → 항목 선택</td></tr>
-            <tr><td>예외 상황</td><td>검색 결과 없음, 네트워크 오류, 잘못된 입력</td></tr>
-            <tr><td>다음 화면</td><td>강의실 상세 정보 → 건물 위치</td></tr>
-          </tbody></table></div></div>
-        </div>
-      </section>
-
-      <section class="chapter" id="responsive">
-        <div class="chapter-heading"><span class="chapter-num">07</span><div><h2>반응형 웹과 모바일 UI 원칙</h2><p>작은 화면에서 핵심 기능을 먼저 설계하고 다양한 기기로 확장한다.</p></div></div>
-        <div class="stack">
-          <div class="card"><div class="keyline">MOBILE FIRST → RESPONSIVE WEB</div><h3>화면 크기에 따라 유연하게 변화하는 레이아웃</h3>
-            <div class="devices-demo">
-              <div class="demo-device"><div class="demo-screen mobile"><div class="demo-top"></div><div class="demo-rows" style="--cols:1"><i></i><i></i><i></i></div></div><div style="text-align:center"><b>모바일</b><br><small>1열 · 핵심 우선</small></div></div>
-              <div class="demo-device"><div class="demo-screen tablet"><div class="demo-top"></div><div class="demo-rows" style="--cols:2"><i></i><i></i><i></i><i></i></div></div><div style="text-align:center"><b>태블릿</b><br><small>2열 · 정보 확장</small></div></div>
-              <div class="demo-device"><div class="demo-screen laptop"><div class="demo-top"></div><div class="demo-rows" style="--cols:3"><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div style="text-align:center"><b>PC</b><br><small>다열 · 넓은 탐색</small></div></div>
-            </div>
-            <p class="footnote">반응형 설계에는 CSS 미디어 쿼리, Flexbox, Grid 등이 사용된다. 브레이크포인트는 특정 기기명이 아니라 콘텐츠가 어색해지는 지점을 기준으로 정한다.</p>
-          </div>
-          <div class="touch-tips">
-            <div class="touch-tip"><span aria-hidden="true">◉</span><b>충분한 터치 영역</b><small>버튼 크기와 버튼 사이 간격 확보</small></div>
-            <div class="touch-tip"><span aria-hidden="true">≡</span><b>간결한 메뉴</b><small>주요 작업 중심으로 기능 구성</small></div>
-            <div class="touch-tip"><span aria-hidden="true">Aa</span><b>읽기 쉬운 텍스트</b><small>크기, 줄 간격, 명도 대비 고려</small></div>
-            <div class="touch-tip"><span aria-hidden="true">✓</span><b>명확한 피드백</b><small>로딩, 완료, 오류 상태 안내</small></div>
-          </div>
-          <div class="card"><div class="keyline">상태별 화면 설계</div><div class="simple-flow"><span>정상 표시</span><span>로딩</span><span>결과 없음</span><span>입력 오류</span><span>네트워크 오류</span><span>작업 완료</span></div><p class="footnote">모바일 UI 설계에서는 정상 화면만이 아니라 예외 상태에 대한 사용자의 다음 행동까지 안내해야 한다.</p></div>
-        </div>
-      </section>
-
-      <section class="chapter" id="designsystem">
-        <div class="chapter-heading"><span class="chapter-num">08</span><div><h2>디자인 시스템</h2><p>색상, 글꼴, 버튼, 입력 요소의 규칙을 정의하여 화면 일관성을 유지한다.</p></div></div>
-        <div class="stack">
-          <div class="cols-2">
-            <div class="card"><h3>Color Palette</h3><div class="palette">
-              <div class="swatch"><div class="color" style="background:#2563eb"></div><b>Primary</b><small>#2563EB</small></div>
-              <div class="swatch"><div class="color" style="background:#0f172a"></div><b>Text</b><small>#0F172A</small></div>
-              <div class="swatch"><div class="color" style="background:#16a34a"></div><b>Success</b><small>#16A34A</small></div>
-              <div class="swatch"><div class="color" style="background:#dc2626"></div><b>Error</b><small>#DC2626</small></div>
-            </div><p class="footnote">색상은 의미 전달을 돕지만, 오류·성공 상태를 색상만으로 구분하지 않는다.</p></div>
-            <div class="card"><h3>Typography</h3><div class="typo-demo"><div class="t1">대제목 24px</div><div class="t2">중제목 18px</div><div class="t3">본문 14~16px 가독성 중심</div><div class="t4">보조 설명 11~14px · 예시 규칙</div></div><p class="footnote">표시 크기는 예시이며, 실제 서비스에서는 화면과 접근성을 함께 검증한다.</p></div>
-          </div>
-          <div class="card"><h3>Component Library</h3><div class="ui-samples"><span class="sample-btn">기본 버튼</span><span class="sample-btn secondary">보조 버튼</span><span class="sample-btn disabled">비활성</span><span class="sample-input">⌕　검색어 입력</span></div><p class="footnote">동일한 기능을 수행하는 컴포넌트에는 동일한 디자인 규칙과 상호작용 상태를 적용한다.</p></div>
-        </div>
-      </section>
-
-      <section class="chapter" id="prototype">
-        <div class="chapter-heading"><span class="chapter-num">09</span><div><h2>프로토타입 제작과 사용성 평가</h2><p>실제 개발 전에 화면 구성과 사용자 행동을 점검하고 개선한다.</p></div></div>
-        <div class="stack">
-          <div class="cols-3">
-            <div class="proto-card"><div class="proto-art"><div class="proto-screen"><i></i><i></i><i></i></div></div><span class="pill blue">01 · LOW-FI</span><h3>저충실도</h3><p>단순한 박스와 선으로 레이아웃을 검토한다.</p></div>
-            <div class="proto-card"><div class="proto-art fancy"><div class="proto-screen"><i></i><i></i><i></i></div></div><span class="pill purple">02 · HIGH-FI</span><h3>고충실도</h3><p>실제 색상, 글꼴, 아이콘을 적용한 시안이다.</p></div>
-            <div class="proto-card"><div class="proto-art clickable"><div class="proto-screen"><i></i><i></i><i></i></div></div><span class="pill teal">03 · INTERACTIVE</span><h3>인터랙티브</h3><p>버튼 선택과 화면 이동을 체험할 수 있다.</p></div>
-          </div>
-          <div class="card"><div class="keyline">인터랙티브 미니 시연</div><h3>화면 흐름 체험 — 캠퍼스ON</h3><div class="cols-2" style="align-items:center">
-            <div><p>아래 단계 버튼을 선택하면 화면의 상태가 바뀐다. 기획된 사용자 흐름을 프로토타입으로 검증하는 방식을 표현한 예시이다.</p><div class="preview-controls" role="group" aria-label="프로토타입 화면 선택"><button type="button" class="screen-switch" data-screen="home" aria-pressed="true">① 홈</button><button type="button" class="screen-switch" data-screen="search" aria-pressed="false">② 검색</button><button type="button" class="screen-switch" data-screen="detail" aria-pressed="false">③ 상세</button></div></div>
-            <div class="preview-phone" aria-live="polite">
-              <div class="preview-screen" data-preview="home"><div class="phone-bar"><b>캠퍼스ON</b><span>☰</span></div><div class="preview-field">⌕　강의실을 검색하세요</div><div class="phone-banner" style="margin-top:10px">오늘의 캠퍼스 안내<br><small>강의실·건물 위치 확인</small></div><button class="preview-btn" type="button" data-next="search">검색 시작 →</button></div>
-              <div class="preview-screen" data-preview="search" hidden><div class="phone-bar"><b>강의실 검색</b><span>⌕</span></div><div class="preview-field">⌕　A-301</div><div class="preview-result"><b>공학관 A-301</b><small>공학관 · 3층</small></div><button class="preview-btn" type="button" data-next="detail">상세 정보 보기 →</button></div>
-              <div class="preview-screen" data-preview="detail" hidden><div class="phone-bar"><b>강의실 상세</b><span>☆</span></div><div class="preview-result"><b>공학관 A-301</b><small>공학관 3층 · 강의실 위치</small></div><div class="preview-field">◇　건물 위치 보기</div><button class="preview-btn" type="button" data-next="home">처음으로 ↺</button></div>
-            </div>
-          </div></div>
-          <div class="card"><h3>사용성 평가의 5가지 기준</h3><div class="metrics"><div class="metric"><i aria-hidden="true">✓</i><b>성공률</b><small>작업 완료 여부</small></div><div class="metric"><i aria-hidden="true">◷</i><b>소요 시간</b><small>목적 달성 속도</small></div><div class="metric"><i aria-hidden="true">!</i><b>오류 횟수</b><small>잘못된 입력·조작</small></div><div class="metric"><i aria-hidden="true">⌕</i><b>탐색 용이성</b><small>메뉴 발견 정도</small></div><div class="metric"><i aria-hidden="true">☆</i><b>만족도</b><small>사용자 피드백</small></div></div></div>
-        </div>
-      </section>
-
-      <section class="chapter" id="engineering">
-        <div class="chapter-heading"><span class="chapter-num">10</span><div><h2>시스템 구조와 기술적 고려사항</h2><p>UI 설계뿐 아니라 프론트엔드, 백엔드, 성능, 보안, 접근성을 함께 고려한다.</p></div></div>
-        <div class="stack">
-          <div class="card"><div class="keyline">CLIENT · SERVER · DATABASE</div><h3>모바일 웹앱의 기본 시스템 구조</h3>
-            <div class="architecture"><div class="arch-node"><span aria-hidden="true">▣</span><b>클라이언트</b><small>HTML5 · CSS3<br>JavaScript</small></div><div class="arch-arrow" aria-label="HTTPS 통신">⇄</div><div class="arch-node"><span aria-hidden="true">▤</span><b>웹 / 앱 서버</b><small>API · 인증<br>업무 처리</small></div><div class="arch-arrow" aria-label="데이터 조회와 저장">⇄</div><div class="arch-node"><span aria-hidden="true">▥</span><b>데이터베이스</b><small>사용자 · 강의실<br>공지사항</small></div></div>
-            <p class="footnote">브라우저는 화면과 사용자 입력을 처리하고, 서버는 인증·권한·업무 로직을 처리하며 데이터베이스와 통신한다.</p>
-          </div>
-          <div class="three-checks">
-            <div class="check-card"><h3><span aria-hidden="true">⚡</span> 성능</h3><ul><li>이미지 용량 최적화</li><li>불필요한 요청 감소</li><li>지연 로딩과 캐시 활용</li><li>실제 모바일 기기 테스트</li></ul></div>
-            <div class="check-card"><h3><span aria-hidden="true">⬡</span> 보안</h3><ul><li>HTTPS 데이터 전송</li><li>인증 및 접근 권한 검사</li><li>서버 측 입력 검증</li><li>개인정보 최소 수집</li></ul></div>
-            <div class="check-card"><h3><span aria-hidden="true">◉</span> 접근성</h3><ul><li>충분한 색상 대비</li><li>의미 있는 대체 텍스트</li><li>명확한 레이블과 오류 안내</li><li>키보드·스크린 리더 지원</li></ul></div>
-          </div>
-          <div class="card"><h3>설계 단계에서 미리 결정할 사항</h3><div class="table-scroll"><table class="comparison"><thead><tr><th style="width:28%">영역</th><th>점검 내용</th></tr></thead><tbody>
-            <tr><td>네트워크</td><td>연결 실패 시 메시지 및 재시도 기능</td></tr><tr><td>상태 관리</td><td>로딩, 입력 오류, 결과 없음, 완료 상태</td></tr><tr><td>PWA</td><td>필요 시 설치, 캐시, 오프라인 기능 범위 검토</td></tr><tr><td>호환성</td><td>Android / iOS 브라우저 및 화면 크기 테스트</td></tr><tr><td>접근성</td><td>WCAG 기준을 참고하여 사용 가능 여부 점검</td></tr>
-          </tbody></table></div></div>
-        </div>
-      </section>
-
-      <section class="chapter" id="practice">
-        <div class="chapter-heading"><span class="chapter-num">11</span><div><h2>실습 프로젝트 — 캠퍼스 정보 웹앱</h2><p>서비스 기획부터 사용성 평가까지 학생이 직접 수행하는 프로젝트.</p></div></div>
-        <div class="stack">
-          <div class="assignment"><span class="pill teal">PROJECT ASSIGNMENT</span><h3>대학생을 위한 캠퍼스 정보 모바일 웹앱</h3><p>강의실 검색·위치 안내·공지사항을 제공하는 모바일 웹앱을 기획하고, UI/UX 설계 산출물과 인터랙티브 프로토타입을 완성한다.</p></div>
-          <div class="card"><h3>실습 8단계</h3><div class="flowgrid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
-            <div class="feature-row"><span class="check">1</span>서비스 주제와 목표 정의</div>
-            <div class="feature-row"><span class="check">2</span>사용자·요구사항 분석</div>
-            <div class="feature-row"><span class="check">3</span>기능·메뉴 구조 선정</div>
-            <div class="feature-row"><span class="check">4</span>정보구조·사용자 흐름도</div>
-            <div class="feature-row"><span class="check">5</span>와이어프레임 작성</div>
-            <div class="feature-row"><span class="check">6</span>UI 디자인 시안 제작</div>
-            <div class="feature-row"><span class="check">7</span>인터랙티브 프로토타입</div>
-            <div class="feature-row"><span class="check">8</span>사용성 평가 및 개선</div>
-          </div></div>
-          <div class="cols-2">
-            <div class="card"><h3>필수 제출물</h3><div class="deliverables"><div class="deliverable"><em>01</em>서비스 기획서</div><div class="deliverable"><em>02</em>요구사항 정의서</div><div class="deliverable"><em>03</em>정보구조도</div><div class="deliverable"><em>04</em>화면 흐름도</div><div class="deliverable"><em>05</em>와이어프레임</div><div class="deliverable"><em>06</em>프로토타입</div><div class="deliverable"><em>07</em>사용성 평가서</div></div></div>
-            <div class="card"><h3>평가 기준 · 총 100점</h3><div class="rubric">
-              <div class="rubric-row"><b>서비스 기획</b><div class="rubric-track"><span class="rubric-fill" style="width:100%"></span></div><strong>20</strong></div>
-              <div class="rubric-row"><b>요구사항 분석</b><div class="rubric-track"><span class="rubric-fill" style="width:75%"></span></div><strong>15</strong></div>
-              <div class="rubric-row"><b>정보구조·흐름</b><div class="rubric-track"><span class="rubric-fill" style="width:100%"></span></div><strong>20</strong></div>
-              <div class="rubric-row"><b>UI/UX 디자인</b><div class="rubric-track"><span class="rubric-fill" style="width:100%"></span></div><strong>20</strong></div>
-              <div class="rubric-row"><b>프로토타입</b><div class="rubric-track"><span class="rubric-fill" style="width:75%"></span></div><strong>15</strong></div>
-              <div class="rubric-row"><b>사용성 검증</b><div class="rubric-track"><span class="rubric-fill" style="width:50%"></span></div><strong>10</strong></div>
-            </div><p class="footnote">막대 길이는 각 항목을 최대 20점에 대해 상대 비교한 것이다.</p></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="chapter" id="summary">
-        <div class="chapter-heading"><span class="chapter-num">12</span><div><h2>핵심 정리와 학습 확인</h2><p>모바일 웹앱 기획·설계의 핵심 개념을 최종 점검한다.</p></div></div>
-        <div class="stack">
-          <div class="takeaway-grid">
-            <div class="takeaway"><span class="mark">1</span><div><b>기획은 문제 정의에서 출발</b><p>무엇을 만들지보다 어떤 사용자 문제를 해결할지 먼저 결정한다.</p></div></div>
-            <div class="takeaway"><span class="mark">2</span><div><b>UI와 UX를 함께 설계</b><p>보기 좋은 화면과 목적을 달성하기 쉬운 흐름을 동시에 고려한다.</p></div></div>
-            <div class="takeaway"><span class="mark">3</span><div><b>요구사항은 검증 가능하게</b><p>기능·비기능 요구사항과 우선순위를 구체적으로 정한다.</p></div></div>
-            <div class="takeaway"><span class="mark">4</span><div><b>화면 전에 구조부터</b><p>정보구조 → 화면 흐름 → 와이어프레임 → 화면 설계서 순으로 구체화한다.</p></div></div>
-            <div class="takeaway"><span class="mark">5</span><div><b>모바일 중심으로 확장</b><p>작은 화면의 핵심 기능을 우선하고 터치·접근성·반응형을 검토한다.</p></div></div>
-            <div class="takeaway"><span class="mark">6</span><div><b>프로토타입으로 반복 검증</b><p>실제 사용자 테스트에서 발견한 문제를 설계에 반영한다.</p></div></div>
-          </div>
-          <div class="card"><h3>스스로 확인하는 5문항</h3>
-            <details><summary>Q1. UI와 UX는 어떻게 다른가?</summary><p>UI는 사용자에게 보이는 화면과 조작 요소이며, UX는 사용자가 목적을 달성하는 과정에서 경험하는 편의성·효율성·만족도 등을 의미한다.</p></details>
-            <details><summary>Q2. MVP를 정의하는 이유는 무엇인가?</summary><p>핵심 가치를 확인하는 데 필요한 기능에 먼저 집중하여 개발 비용과 위험을 줄이고 사용자 피드백을 확보하기 위해서이다.</p></details>
-            <details><summary>Q3. 정보구조도와 사용자 흐름도의 차이는?</summary><p>정보구조도는 메뉴와 콘텐츠의 전체 계층을 나타내고, 사용자 흐름도는 특정 목표를 달성하기 위해 거치는 화면의 순서를 보여준다.</p></details>
-            <details><summary>Q4. Mobile First가 중요한 이유는 무엇인가?</summary><p>제한된 모바일 화면에서 가장 중요한 기능과 정보를 먼저 결정하고, 넓은 화면으로 유연하게 확장하도록 돕기 때문이다.</p></details>
-            <details><summary>Q5. 프로토타입 검증 단계에서 무엇을 평가하는가?</summary><p>작업 성공률, 작업 시간, 오류 횟수, 탐색 용이성, 사용자 만족도 등을 평가하고 그 결과를 설계 개선에 활용한다.</p></details>
-          </div>
-        </div>
-      </section>
-      <div class="endbanner"><div><strong>좋은 모바일 웹앱은 코드가 아니라 사용자 문제에서 시작된다.</strong><p>기획 → 분석 → 정보구조 → UI/UX 설계 → 검증 → 개선의 전체 흐름을 이해하는 것이 핵심이다.</p></div><button class="action primary" type="button" onclick="window.print()">인쇄 / PDF 저장 ↗</button></div>
-      <footer><span>모바일프로그래밍 · 모바일 웹앱 디자인 기획 및 설계</span><span>오프라인 실행 가능 · 단일 HTML5 파일</span></footer>
-    </main>
-  </div>
-  <button class="back-to-top" id="backToTop" type="button" aria-label="맨 위로 이동">↑</button>
   <script>
-    (function(){
-      'use strict';
-      const progress=document.getElementById('scrollProgress');
-      const back=document.getElementById('backToTop');
-      const menu=document.getElementById('courseNav');
-      const toggle=document.getElementById('menuToggle');
-      const links=Array.from(document.querySelectorAll('#toc a'));
-      const sections=links.map(a=>document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
-      function updateScroll(){
-        const h=document.documentElement.scrollHeight-window.innerHeight;
-        progress.style.width=(h>0?Math.max(0,Math.min(100,window.scrollY/h*100)):0)+'%';
-        back.classList.toggle('visible',window.scrollY>360);
-        let current=sections[0];
-        for(const section of sections){if(section.getBoundingClientRect().top<160){current=section;}else{break;}}
-        if(current){links.forEach(a=>{const selected=a.getAttribute('href')==='#'+current.id;a.classList.toggle('active',selected);if(selected)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
+    "use strict";
+
+    // 기본 강좌 데이터. 배포 시 같은 폴더에 courses.json을 두면 JSON 내용이 우선 적용됩니다.
+    // 두 링크는 이전 예제의 파일명입니다. 실제 HTML 자료 파일을 업로드하거나 URL을 수정하세요.
+    const DEFAULT_COURSES = [
+      {
+        id: "mobile-webapp", title: "모바일웹앱디자인", category: "모바일·앱", level: "기획 · UI/UX",
+        description: "모바일 웹과 웹앱의 개념, 사용자 경험, 화면 구성, 반응형 인터페이스와 서비스 기획 및 설계 과정을 학습합니다.",
+        theme: "violet", createdAt: "2026-10-20T09:00:00.000Z",
+        materials: [{ id: "m-webapp-intro", title: "모바일웹앱디자인 강의자료", week: "강의자료", type: "강의안", url: "mobile-webapp-design.html" }]
+      },
+      {
+        id: "android-ios", title: "안드로이드(Android OS)와 iOS의 디자인 설계 및 프로그래밍", category: "모바일·앱", level: "플랫폼 · 설계",
+        description: "Android OS와 iOS의 디자인 체계, 개발 환경과 프로그래밍 구조를 비교하고 모바일 앱의 설계 방향을 살펴봅니다.",
+        theme: "blue", createdAt: "2026-10-21T09:00:00.000Z",
+        materials: [{ id: "m-platform-intro", title: "Android OS와 iOS 디자인 설계 및 프로그래밍 강의자료", week: "강의자료", type: "강의안", url: "android-ios-design.html" }]
       }
-      window.addEventListener('scroll',updateScroll,{passive:true});
-      window.addEventListener('resize',updateScroll,{passive:true});
-      updateScroll();
-      back.addEventListener('click',()=>window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}));
-      toggle.addEventListener('click',()=>{const open=menu.classList.toggle('mobile-open');toggle.setAttribute('aria-expanded',String(open));toggle.textContent=open?'✕ 닫기':'☰ 목차';document.body.style.overflow=open?'hidden':'';});
-      links.forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('mobile-open');toggle.setAttribute('aria-expanded','false');toggle.textContent='☰ 목차';document.body.style.overflow='';}));
-      window.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.contains('mobile-open')){toggle.click();toggle.focus();}});
-      const screenButtons=Array.from(document.querySelectorAll('.screen-switch'));
-      const previewScreens=Array.from(document.querySelectorAll('[data-preview]'));
-      function selectScreen(id){previewScreens.forEach(s=>{s.hidden=s.dataset.preview!==id;});screenButtons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.screen===id)));}
-      screenButtons.forEach(button=>button.addEventListener('click',()=>selectScreen(button.dataset.screen)));
-      document.querySelectorAll('[data-next]').forEach(button=>button.addEventListener('click',()=>selectScreen(button.dataset.next)));
-    })();
+    ];
+    const STORAGE_KEY = "open_mooc_courses_v1";
+    const CATEGORY_OPTIONS = ["모바일·앱", "웹·프론트엔드", "인공지능·데이터", "운영체제·보안", "메타버스·3D", "디지털 문화", "기타"];
+    const THEMES = ["blue", "violet", "teal", "orange", "green"];
+    let courses = [];
+    let activeCategory = "전체";
+    let managing = false;
+    let detailCourseId = null;
+    let toastTimer = null;
+    const $ = id => document.getElementById(id);
+
+    function esc(value) {
+      return String(value ?? "").replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+    }
+    function uid() { return typeof crypto !== "undefined" && typeof crypto.randomUUID === "function" ? crypto.randomUUID() : `id-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`; }
+    function validLink(value) {
+      const input = String(value ?? "").trim();
+      if (!input || /[\u0000-\u001F]/.test(input)) return null;
+      // 절대경로 https/http 또는 같은 폴더의 상대경로만 허용
+      if (/^[a-z][a-z\d+.-]*:/i.test(input) && !/^https?:\/\//i.test(input)) return null;
+      if (input.startsWith("//") || input.startsWith("\\\\")) return null;
+      try {
+        const url = new URL(input, document.baseURI);
+        return ["https:", "http:", "file:"].includes(url.protocol) ? input : null;
+      } catch { return null; }
+    }
+    function normalize(raw) {
+      const data = Array.isArray(raw) ? raw : raw && Array.isArray(raw.courses) ? raw.courses : null;
+      if (!data) throw new Error("JSON에는 courses 배열이 필요합니다.");
+      return data.filter(c => c && typeof c.title === "string" && c.title.trim()).slice(0, 1000).map(c => ({
+        id: String(c.id || uid()), title: String(c.title).slice(0, 110), category: String(c.category || "기타").slice(0, 50),
+        level: String(c.level || "").slice(0, 30), description: String(c.description || "").slice(0, 350),
+        theme: THEMES.includes(c.theme) ? c.theme : "blue", createdAt: String(c.createdAt || new Date().toISOString()),
+        materials: Array.isArray(c.materials) ? c.materials.slice(0, 2000).filter(m => m && typeof m.title === "string").map(m => ({
+          id: String(m.id || uid()), title: String(m.title).slice(0, 130), week: String(m.week || "").slice(0, 35),
+          type: String(m.type || "강의안").slice(0, 30), url: String(m.url || "").slice(0, 1024)
+        })) : []
+      }));
+    }
+    function showToast(message) {
+      const toast = $("toast"); toast.textContent = message; toast.classList.add("visible");
+      clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove("visible"), 3600);
+    }
+    function saveLocal() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, courses })); }
+      catch { showToast("브라우저 저장에 실패했습니다. JSON 다운로드로 백업해 주세요."); }
+    }
+    async function loadCourses() {
+      try {
+        const local = localStorage.getItem(STORAGE_KEY);
+        if (local) { courses = normalize(JSON.parse(local)); return; }
+      } catch { /* 저장 데이터 읽기가 제한된 브라우저 */ }
+      if (location.protocol === "https:" || location.protocol === "http:") {
+        try {
+          const res = await fetch("./courses.json", { cache: "no-store" });
+          if (res.ok) { courses = normalize(await res.json()); return; }
+        } catch { /* JSON 파일이 없으면 기본 강좌 사용 */ }
+      }
+      courses = normalize(DEFAULT_COURSES);
+    }
+    function getCourse(id) { return courses.find(c => c.id === id); }
+    function getMaterial(course, id) { return course?.materials.find(m => m.id === id); }
+    function renderCategories() {
+      const categories = ["전체", ...new Set(courses.map(c => c.category).filter(Boolean))];
+      if (!categories.includes(activeCategory)) activeCategory = "전체";
+      $("categoryFilters").innerHTML = categories.map(category => `<button type="button" class="chip ${activeCategory === category ? "active" : ""}" data-category="${esc(category)}" aria-pressed="${activeCategory === category}">${esc(category)}</button>`).join("");
+    }
+    function renderCards() {
+      const query = $("searchInput").value.trim().toLocaleLowerCase("ko");
+      let list = courses.filter(c => (activeCategory === "전체" || c.category === activeCategory) &&
+        (!query || [c.title, c.category, c.level, c.description, ...c.materials.map(m => `${m.title} ${m.week} ${m.type}`)].join(" ").toLocaleLowerCase("ko").includes(query)));
+      const sort = $("sortSelect").value;
+      if (sort === "title") list.sort((a,b) => a.title.localeCompare(b.title, "ko"));
+      else if (sort === "resources") list.sort((a,b) => b.materials.length - a.materials.length || a.title.localeCompare(b.title, "ko"));
+      else list.sort((a,b) => (Date.parse(b.createdAt) || 0) - (Date.parse(a.createdAt) || 0));
+      $("resultCount").textContent = `전체 ${courses.length}개 중 ${list.length}개 강좌`;
+      $("courseGrid").innerHTML = list.length ? list.map((c, idx) => `
+        <article class="course-card">
+          <div class="cover ${esc(c.theme)}">
+            <span class="cover-label">OPEN COURSE</span>
+            <div class="cover-art" aria-hidden="true"><div class="device"></div><div class="tile">${esc(String(idx + 1).padStart(2,"0"))}</div></div>
+            <span class="cover-caption">LEARN · DESIGN · CREATE</span>
+          </div>
+          <div class="card-content">
+            <div class="card-meta"><span class="pill">${esc(c.category)}</span>${c.level ? `<span class="pill pale">${esc(c.level)}</span>` : ""}</div>
+            <h3 class="card-title">${esc(c.title)}</h3>
+            <p class="card-summary">${esc(c.description || "등록된 강의자료를 선택하여 학습을 시작하세요.")}</p>
+            <div class="card-line"><span class="lecture-count">등록된 강의자료 <strong>${c.materials.length}개</strong></span><button class="view-btn" data-action="view" data-id="${esc(c.id)}">자료 보기 →</button></div>
+            ${managing ? `<div class="card-manage"><button class="minor-button" data-action="edit-course" data-id="${esc(c.id)}">강좌 수정</button><button class="minor-button danger" data-action="delete-course" data-id="${esc(c.id)}">강좌 삭제</button></div>` : ""}
+          </div>
+        </article>`).join("") : `<div class="empty"><strong>검색 결과가 없습니다.</strong>검색어를 변경하거나 다른 분야를 선택해 주세요.</div>`;
+    }
+    function renderStats() {
+      $("courseTotal").textContent = courses.length;
+      $("materialTotal").textContent = courses.reduce((total, c) => total + c.materials.length, 0);
+      $("categoryTotal").textContent = new Set(courses.map(c => c.category)).size;
+    }
+    function render() { renderStats(); renderCategories(); renderCards(); }
+    function showCourse(id) {
+      const c = getCourse(id); if (!c) return;
+      detailCourseId = id;
+      $("detailTitle").textContent = c.title;
+      $("detailBody").innerHTML = `
+        <div class="detail-meta"><span class="pill">${esc(c.category)}</span>${c.level ? `<span class="pill pale">${esc(c.level)}</span>` : ""}</div>
+        <p class="detail-desc">${esc(c.description || "등록된 학습자료를 확인하세요.")}</p>
+        <div class="material-top"><h3>강의자료 목록 <span style="color:#4962df">${c.materials.length}</span></h3>${managing ? `<button class="admin-action main" data-action="add-material" data-id="${esc(c.id)}">+ 자료 추가</button>` : ""}</div>
+        <div class="material-list">${c.materials.length ? c.materials.map(m => {
+          const url = validLink(m.url);
+          return `<div class="material"><div class="material-main"><div class="material-meta">${esc(m.week || "학습자료")} · ${esc(m.type)}</div><div class="material-name">${esc(m.title)}</div><div class="material-url">${esc(m.url || "주소 미등록")}</div></div>
+            <div class="material-actions">${url ? `<a class="material-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">자료 열기 ↗</a>` : `<span class="material-invalid">주소 확인 필요</span>`}
+            ${managing ? `<div class="material-manage"><button type="button" class="minor-button" data-action="edit-material" data-id="${esc(c.id)}" data-material="${esc(m.id)}">수정</button><button type="button" class="minor-button danger" data-action="delete-material" data-id="${esc(c.id)}" data-material="${esc(m.id)}">삭제</button></div>` : ""}</div></div>`;
+        }).join("") : `<div class="no-materials">아직 등록된 자료가 없습니다.${managing ? " '자료 추가'로 첫 강의자료를 등록하세요." : ""}</div>`}</div>`;
+      $("detailDialog").showModal();
+    }
+    function fillCategorySelect(value) {
+      const categories = [...new Set([...CATEGORY_OPTIONS, ...courses.map(c => c.category).filter(Boolean)])];
+      $("courseCategory").innerHTML = categories.map(cat => `<option value="${esc(cat)}">${esc(cat)}</option>`).join("");
+      $("courseCategory").value = value || "모바일·앱";
+    }
+    function editCourse(id = null) {
+      const c = id ? getCourse(id) : null;
+      $("courseForm").reset();
+      $("courseId").value = c?.id || "";
+      $("courseFormTitle").textContent = c ? "강좌 수정" : "새 강좌 등록";
+      fillCategorySelect(c?.category);
+      $("courseName").value = c?.title || "";
+      $("courseLevel").value = c?.level || "";
+      $("courseSummary").value = c?.description || "";
+      $("courseTheme").value = c?.theme || "blue";
+      $("courseDialog").showModal();
+      $("courseName").focus();
+    }
+    function editMaterial(courseId, materialId = null) {
+      const c = getCourse(courseId); if (!c) return;
+      const m = materialId ? getMaterial(c, materialId) : null;
+      if ($("detailDialog").open) $("detailDialog").close();
+      $("materialForm").reset();
+      $("materialCourseId").value = courseId;
+      $("materialId").value = m?.id || "";
+      $("materialFormTitle").textContent = m ? "강의자료 수정" : "강의자료 추가";
+      $("materialName").value = m?.title || "";
+      $("materialWeek").value = m?.week || "";
+      $("materialType").value = m?.type || "강의안";
+      $("materialUrl").value = m?.url || "";
+      $("materialDialog").showModal();
+      $("materialName").focus();
+    }
+    $("courseForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const id = $("courseId").value;
+      const c = id ? getCourse(id) : null;
+      const entry = {
+        id: c?.id || uid(), title: $("courseName").value.trim(), category: $("courseCategory").value,
+        level: $("courseLevel").value.trim(), description: $("courseSummary").value.trim(),
+        theme: $("courseTheme").value, createdAt: c?.createdAt || new Date().toISOString(), materials: c?.materials || []
+      };
+      if (!entry.title) return;
+      if (c) Object.assign(c, entry); else courses.unshift(entry);
+      saveLocal(); render(); $("courseDialog").close(); showToast(c ? "강좌 정보를 수정했습니다." : "새 강좌를 등록했습니다. 강의자료를 추가해 주세요.");
+      if (!c) showCourse(entry.id);
+    });
+    $("materialForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const courseId = $("materialCourseId").value;
+      const c = getCourse(courseId); if (!c) return;
+      const rawUrl = $("materialUrl").value.trim();
+      if (!validLink(rawUrl)) { showToast("http(s) 주소 또는 안전한 상대경로를 입력하세요."); $("materialUrl").focus(); return; }
+      const id = $("materialId").value;
+      const m = id ? getMaterial(c, id) : null;
+      const entry = { id: m?.id || uid(), title: $("materialName").value.trim(), week: $("materialWeek").value.trim(), type: $("materialType").value, url: rawUrl };
+      if (!entry.title) return;
+      if (m) Object.assign(m, entry); else c.materials.push(entry);
+      saveLocal(); render(); $("materialDialog").close(); showCourse(courseId);
+      showToast(m ? "강의자료를 수정했습니다." : "강의자료 링크를 추가했습니다.");
+    });
+    $("courseGrid").addEventListener("click", e => {
+      const btn = e.target.closest("button[data-action]"); if (!btn) return;
+      const action = btn.dataset.action, id = btn.dataset.id;
+      if (action === "view") showCourse(id);
+      else if (action === "edit-course") editCourse(id);
+      else if (action === "delete-course") {
+        const c = getCourse(id);
+        if (c && confirm(`'${c.title}' 강좌와 모든 자료 링크를 삭제할까요?`)) { courses = courses.filter(v => v.id !== id); saveLocal(); render(); showToast("강좌를 삭제했습니다."); }
+      }
+    });
+    $("detailBody").addEventListener("click", e => {
+      const btn = e.target.closest("button[data-action]"); if (!btn) return;
+      const action = btn.dataset.action, courseId = btn.dataset.id, materialId = btn.dataset.material;
+      if (action === "add-material") editMaterial(courseId);
+      if (action === "edit-material") editMaterial(courseId, materialId);
+      if (action === "delete-material") {
+        const c = getCourse(courseId), m = getMaterial(c, materialId);
+        if (m && confirm(`'${m.title}' 자료 링크를 삭제할까요?`)) {
+          c.materials = c.materials.filter(v => v.id !== materialId);
+          saveLocal(); render(); $("detailDialog").close(); showCourse(courseId); showToast("자료 링크를 삭제했습니다.");
+        }
+      }
+    });
+    $("categoryFilters").addEventListener("click", e => {
+      const chip = e.target.closest("[data-category]"); if (!chip) return;
+      activeCategory = chip.dataset.category; renderCategories(); renderCards();
+    });
+    $("searchInput").addEventListener("input", renderCards);
+    $("sortSelect").addEventListener("change", renderCards);
+    $("manageToggle").addEventListener("click", () => {
+      managing = !managing;
+      document.body.classList.toggle("managing", managing);
+      $("manageToggle").setAttribute("aria-pressed", String(managing));
+      $("manageLabel").textContent = managing ? "관리 종료" : "콘텐츠 관리";
+      renderCards();
+      showToast(managing ? "관리 모드: 변경사항은 이 브라우저에만 저장됩니다." : "콘텐츠 관리 모드를 종료했습니다.");
+      if (managing) $("adminPanel").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+    $("addCourse").addEventListener("click", () => editCourse());
+    document.querySelectorAll("[data-close]").forEach(btn => btn.addEventListener("click", () => $(btn.dataset.close).close()));
+    ["detailDialog", "courseDialog", "materialDialog"].forEach(id => {
+      const dialog = $(id);
+      dialog.addEventListener("click", e => { if (e.target === dialog) dialog.close(); });
+    });
+    $("exportJson").addEventListener("click", () => {
+      const blob = new Blob([JSON.stringify({ version: 1, courses }, null, 2)], { type: "application/json;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a"); a.href = url; a.download = "courses.json";
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      showToast("courses.json을 내려받았습니다. 공개 사이트에 반영하려면 파일을 업로드하세요.");
+    });
+    $("importJson").addEventListener("click", () => $("importInput").click());
+    $("importInput").addEventListener("change", async e => {
+      const file = e.target.files?.[0]; if (!file) return;
+      if (file.size > 5_000_000) { showToast("5MB 이하의 JSON 파일을 선택해 주세요."); e.target.value = ""; return; }
+      try {
+        const imported = normalize(JSON.parse(await file.text()));
+        if (confirm(`JSON의 ${imported.length}개 강좌로 현재 목록을 교체할까요?`)) {
+          courses = imported; activeCategory = "전체"; saveLocal(); render(); showToast("강좌 목록을 가져왔습니다.");
+        }
+      } catch (err) { showToast(`JSON 파일을 읽지 못했습니다: ${err.message}`); }
+      e.target.value = "";
+    });
+    $("resetLocal").addEventListener("click", () => {
+      if (confirm("이 브라우저에서 편집한 강좌 목록을 지우고 배포된 데이터로 돌아갈까요?")) {
+        try { localStorage.removeItem(STORAGE_KEY); } catch { /* 무시 */ }
+        location.reload();
+      }
+    });
+    loadCourses().then(render);
   </script>
 </body>
 </html>
